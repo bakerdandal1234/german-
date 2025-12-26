@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أهم الأفعال الألمانية - مستوى A2</title>
+    <title>أهم الأفعال الألمانية - مستوى A2-B1</title>
     <style>
         * {
             margin: 0;
@@ -13,16 +13,16 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 40px 20px;
+            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
-            padding: 40px;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
@@ -37,29 +37,146 @@
         .subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-size: 1.1em;
         }
-        
-        .category {
-            margin-bottom: 50px;
-            page-break-inside: avoid;
+
+        /* Search Box Styles */
+        .search-container {
+            margin-bottom: 25px;
+            position: relative;
         }
-        
-        .category-title {
+
+        .search-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            padding: 15px 50px 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.3em;
+            pointer-events: none;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #f0f0f0;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .clear-search:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .clear-search.visible {
+            display: flex;
+        }
+
+        .search-results-info {
+            text-align: center;
+            padding: 10px;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        /* Tabs Styles */
+        .tabs {
+            display: flex;
+            gap: 5px;
+            overflow-x: auto;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0;
+        }
+
+        .tab-button {
+            background: #f5f5f5;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #666;
+            border-radius: 10px 10px 0 0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border: 2px solid transparent;
+        }
+
+        .tab-button:hover {
+            background: #e8e8e8;
+            color: #667eea;
+        }
+
+        .tab-button.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-size: 1.3em;
-            font-weight: bold;
+            border-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .verbs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 15px;
+            margin-top: 20px;
         }
         
         .verb-card {
@@ -68,6 +185,8 @@
             padding: 15px;
             background: #f9f9f9;
             transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
         }
         
         .verb-card:hover {
@@ -75,9 +194,22 @@
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
             border-color: #667eea;
         }
+
+        .verb-card.highlight {
+            background: #fff9e6;
+            border-color: #ffd700;
+        }
+
+        .has-derivatives::after {
+            content: "📌";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.2em;
+        }
         
         .verb-german {
-            font-size: 1.3em;
+            font-size: 1.25em;
             font-weight: bold;
             color: #667eea;
             margin-bottom: 5px;
@@ -86,7 +218,7 @@
         }
         
         .verb-prep {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: #9333ea;
             margin-bottom: 5px;
             direction: ltr;
@@ -95,12 +227,140 @@
         }
         
         .verb-arabic {
-            font-size: 1.1em;
+            font-size: 1em;
             color: #333;
             margin-bottom: 8px;
         }
         
         .verb-example {
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+            direction: ltr;
+            text-align: right;
+            padding-top: 8px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .highlight-text {
+            background-color: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 3% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+            direction: rtl;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: left;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #667eea;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+            clear: both;
+            padding-top: 10px;
+        }
+
+        .modal-verb-title {
+            font-size: 2.8em;
+            color: #667eea;
+            direction: ltr;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .modal-verb-meaning {
+            font-size: 1.3em;
+            color: #666;
+        }
+
+        .derivatives-section {
+            margin-top: 30px;
+        }
+
+        .derivatives-title {
+            font-size: 1.4em;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .derivative-card {
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .derivative-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.2);
+        }
+
+        .derivative-verb {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #764ba2;
+            direction: ltr;
+            text-align: right;
+            margin-bottom: 8px;
+        }
+
+        .derivative-meaning {
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .derivative-example {
             font-size: 0.9em;
             color: #666;
             font-style: italic;
@@ -109,33 +369,21 @@
             padding-top: 8px;
             border-top: 1px solid #e0e0e0;
         }
+
+        .no-derivatives {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            font-size: 1.1em;
+        }
         
         .footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 30px;
             padding-top: 20px;
             border-top: 2px solid #e0e0e0;
             color: #666;
-        }
-        
-        @media print {
-            body {
-                background: white;
-                padding: 0;
-            }
-            
-            .container {
-                box-shadow: none;
-                padding: 20px;
-            }
-            
-            .category {
-                page-break-inside: avoid;
-            }
-            
-            .verb-card {
-                break-inside: avoid;
-            }
+            font-size: 0.9em;
         }
         
         @media (max-width: 768px) {
@@ -146,1269 +394,816 @@
             h1 {
                 font-size: 1.8em;
             }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-button {
+                font-size: 0.85em;
+                padding: 10px 15px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+                padding: 20px;
+            }
+
+            .modal-verb-title {
+                font-size: 2em;
+            }
+
+            .search-box {
+                font-size: 1em;
+                padding: 12px 45px 12px 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🇩🇪 أهم الأفعال الألمانية</h1>
-        <p class="subtitle">مستوى A2 - 160 فعل أساسي مع أمثلة وحروف الجر</p>
+        <p class="subtitle">مستوى A2-B1 - 233 فعل مع حروف الجر والمشتقات (📌 اضغط للمشتقات)</p>
 
-        <div class="category">
-            <div class="category-title">١. الأفعال الأساسية اليومية (30 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">sein</div>
-                    <div class="verb-arabic">يكون</div>
-                    <div class="verb-example">Ich bin Lehrer</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">haben</div>
-                    <div class="verb-arabic">يملك</div>
-                    <div class="verb-example">Ich habe Zeit</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">werden</div>
-                    <div class="verb-arabic">يصبح</div>
-                    <div class="verb-example">Er wird Arzt</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">machen</div>
-                    <div class="verb-arabic">يفعل / يصنع</div>
-                    <div class="verb-example">Was machst du?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">gehen</div>
-                    <div class="verb-arabic">يذهب</div>
-                    <div class="verb-example">Ich gehe nach Hause</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">kommen</div>
-                    <div class="verb-arabic">يأتي</div>
-                    <div class="verb-example">Er kommt morgen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sehen</div>
-                    <div class="verb-arabic">يرى</div>
-                    <div class="verb-example">Ich sehe dich</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">nehmen</div>
-                    <div class="verb-arabic">يأخذ</div>
-                    <div class="verb-example">Nimm ein Taxi!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">geben</div>
-                    <div class="verb-arabic">يعطي</div>
-                    <div class="verb-example">Gib mir das Buch</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">wissen</div>
-                    <div class="verb-arabic">يعرف</div>
-                    <div class="verb-example">Ich weiß es nicht</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sagen</div>
-                    <div class="verb-arabic">يقول</div>
-                    <div class="verb-example">Was sagst du?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">arbeiten</div>
-                    <div class="verb-prep">+ bei (Dativ) / an (Dativ)</div>
-                    <div class="verb-arabic">يعمل</div>
-                    <div class="verb-example">Ich arbeite bei Siemens / an einem Projekt</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">leben</div>
-                    <div class="verb-arabic">يعيش</div>
-                    <div class="verb-example">Wo lebst du?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">essen</div>
-                    <div class="verb-arabic">يأكل</div>
-                    <div class="verb-example">Was isst du gern?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">trinken</div>
-                    <div class="verb-arabic">يشرب</div>
-                    <div class="verb-example">Ich trinke Kaffee</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">schlafen</div>
-                    <div class="verb-arabic">ينام</div>
-                    <div class="verb-example">Ich schlafe 8 Stunden</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">wohnen</div>
-                    <div class="verb-prep">+ in (Dativ)</div>
-                    <div class="verb-arabic">يسكن</div>
-                    <div class="verb-example">Ich wohne in Berlin</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">heißen</div>
-                    <div class="verb-arabic">يُدعى</div>
-                    <div class="verb-example">Wie heißt du?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">brauchen</div>
-                    <div class="verb-arabic">يحتاج</div>
-                    <div class="verb-example">Ich brauche Hilfe</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">bleiben</div>
-                    <div class="verb-arabic">يبقى</div>
-                    <div class="verb-example">Bleib hier!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">finden</div>
-                    <div class="verb-arabic">يجد</div>
-                    <div class="verb-example">Ich finde es gut</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">kaufen</div>
-                    <div class="verb-arabic">يشتري</div>
-                    <div class="verb-example">Ich kaufe Brot</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">kosten</div>
-                    <div class="verb-arabic">يكلف</div>
-                    <div class="verb-example">Was kostet das?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">bezahlen</div>
-                    <div class="verb-prep">+ für (Akkusativ)</div>
-                    <div class="verb-arabic">يدفع</div>
-                    <div class="verb-example">Ich bezahle für das Essen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">öffnen</div>
-                    <div class="verb-arabic">يفتح</div>
-                    <div class="verb-example">Öffne die Tür!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">schließen</div>
-                    <div class="verb-arabic">يغلق</div>
-                    <div class="verb-example">Schließ das Fenster!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">beginnen</div>
-                    <div class="verb-prep">+ mit (Dativ)</div>
-                    <div class="verb-arabic">يبدأ</div>
-                    <div class="verb-example">Ich beginne mit der Arbeit</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">enden</div>
-                    <div class="verb-prep">+ mit (Dativ)</div>
-                    <div class="verb-arabic">ينتهي</div>
-                    <div class="verb-example">Der Film endet mit einem Happy End</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">dauern</div>
-                    <div class="verb-arabic">يستغرق</div>
-                    <div class="verb-example">Es dauert 2 Stunden</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">passieren</div>
-                    <div class="verb-arabic">يحدث</div>
-                    <div class="verb-example">Was ist passiert?</div>
-                </div>
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" 
+                       id="searchBox" 
+                       class="search-box" 
+                       placeholder="ابحث عن فعل ألماني (مثال: aus, ein, gehen)..."
+                       oninput="searchVerbs()"
+                       dir="auto">
+                <button class="clear-search" id="clearSearch" onclick="clearSearch()">✕</button>
+                <span class="search-icon">🔍</span>
             </div>
+            <div id="searchResultsInfo" class="search-results-info"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">٢. أفعال الحركة والانتقال (15 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">fahren</div>
-                    <div class="verb-prep">+ mit (Dativ) / nach (Dativ)</div>
-                    <div class="verb-arabic">يقود / يسافر</div>
-                    <div class="verb-example">Ich fahre mit dem Auto nach Berlin</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">fliegen</div>
-                    <div class="verb-prep">+ nach (Dativ)</div>
-                    <div class="verb-arabic">يطير</div>
-                    <div class="verb-example">Wir fliegen nach Paris</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">laufen</div>
-                    <div class="verb-arabic">يمشي / يجري</div>
-                    <div class="verb-example">Er läuft schnell</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">rennen</div>
-                    <div class="verb-arabic">يركض</div>
-                    <div class="verb-example">Die Kinder rennen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">steigen</div>
-                    <div class="verb-arabic">يصعد</div>
-                    <div class="verb-example">Er steigt die Treppe</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">fallen</div>
-                    <div class="verb-arabic">يسقط</div>
-                    <div class="verb-example">Der Apfel fällt</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">bringen</div>
-                    <div class="verb-arabic">يُحضر</div>
-                    <div class="verb-example">Bring mir Wasser!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">holen</div>
-                    <div class="verb-arabic">يُحضر / يجلب</div>
-                    <div class="verb-example">Hol die Tasche!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">tragen</div>
-                    <div class="verb-arabic">يحمل</div>
-                    <div class="verb-example">Ich trage den Koffer</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">stellen</div>
-                    <div class="verb-arabic">يضع (واقفاً)</div>
-                    <div class="verb-example">Stell die Flasche hier</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">legen</div>
-                    <div class="verb-prep">+ auf (Akkusativ)</div>
-                    <div class="verb-arabic">يضع (مستلقياً)</div>
-                    <div class="verb-example">Leg das Buch auf den Tisch</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">setzen</div>
-                    <div class="verb-arabic">يُجلس</div>
-                    <div class="verb-example">Setz dich!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">stehen</div>
-                    <div class="verb-arabic">يقف</div>
-                    <div class="verb-example">Er steht dort</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">liegen</div>
-                    <div class="verb-arabic">يستلقي</div>
-                    <div class="verb-example">Das Buch liegt hier</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sitzen</div>
-                    <div class="verb-prep">+ an/bei (Dativ)</div>
-                    <div class="verb-arabic">يجلس</div>
-                    <div class="verb-example">Ich sitze am Fenster</div>
-                </div>
-            </div>
+        <div class="tabs" id="tabsContainer">
+            <button class="tab-button active" onclick="openTab(event, 'tab1')">١. أفعال يومية</button>
+            <button class="tab-button" onclick="openTab(event, 'tab2')">٢. حركة وانتقال</button>
+            <button class="tab-button" onclick="openTab(event, 'tab3')">٣. أفعال منفصلة</button>
+            <button class="tab-button" onclick="openTab(event, 'tab4')">٤. تواصل</button>
+            <button class="tab-button" onclick="openTab(event, 'tab5')">٥. مشاعر</button>
+            <button class="tab-button" onclick="openTab(event, 'tab6')">٦. موداليتي</button>
+            <button class="tab-button" onclick="openTab(event, 'tab7')">٧. انعكاسية</button>
+            <button class="tab-button" onclick="openTab(event, 'tab8')">٨. دراسة وعمل</button>
+            <button class="tab-button" onclick="openTab(event, 'tab9')">٩. طقس</button>
+            <button class="tab-button" onclick="openTab(event, 'tab10')">١٠. متنوعة</button>
+            <button class="tab-button" onclick="openTab(event, 'tab11')">١١. تفكير</button>
+            <button class="tab-button" onclick="openTab(event, 'tab12')">١٢. إحساس</button>
+            <button class="tab-button" onclick="openTab(event, 'tab13')">١٣. تنظيم</button>
+            <button class="tab-button" onclick="openTab(event, 'tab14')">١٤. طلب وعرض</button>
+            <button class="tab-button" onclick="openTab(event, 'tab15')">١٥. مشاكل وحلول</button>
+            <button class="tab-button" onclick="openTab(event, 'tab16')">١٦. تواصل متقدم</button>
+            <button class="tab-button" onclick="openTab(event, 'tab17')">١٧. تغيير وتطوير</button>
+            <button class="tab-button" onclick="openTab(event, 'tab18')">١٨. علاقات اجتماعية</button>
+            <button class="tab-button" onclick="openTab(event, 'tab19')">١٩. مال وأعمال</button>
+            <button class="tab-button" onclick="openTab(event, 'tab20')">٢٠. تأثير وسببية</button>
         </div>
 
-        <div class="category">
-            <div class="category-title">٣. الأفعال القابلة للفصل (20 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">aufstehen</div>
-                    <div class="verb-arabic">يستيقظ / ينهض</div>
-                    <div class="verb-example">Ich stehe um 7 auf</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">aufwachen</div>
-                    <div class="verb-arabic">يستيقظ</div>
-                    <div class="verb-example">Ich wache früh auf</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">einschlafen</div>
-                    <div class="verb-arabic">ينام / يغفو</div>
-                    <div class="verb-example">Er schläft schnell ein</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">ausgehen</div>
-                    <div class="verb-arabic">يخرج</div>
-                    <div class="verb-example">Wir gehen heute aus</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">einkaufen</div>
-                    <div class="verb-arabic">يتسوق</div>
-                    <div class="verb-example">Ich kaufe im Supermarkt ein</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">anrufen</div>
-                    <div class="verb-arabic">يتصل</div>
-                    <div class="verb-example">Ruf mich an!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">abholen</div>
-                    <div class="verb-arabic">يستلم / يلتقط</div>
-                    <div class="verb-example">Ich hole dich ab</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">mitnehmen</div>
-                    <div class="verb-arabic">يأخذ معه</div>
-                    <div class="verb-example">Nimm einen Regenschirm mit!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">zurückkommen</div>
-                    <div class="verb-arabic">يعود</div>
-                    <div class="verb-example">Wann kommst du zurück?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">ankommen</div>
-                    <div class="verb-prep">+ in (Dativ)</div>
-                    <div class="verb-arabic">يصل</div>
-                    <div class="verb-example">Ich komme in Berlin an</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">abfahren</div>
-                    <div class="verb-arabic">يغادر</div>
-                    <div class="verb-example">Der Bus fährt um 8 ab</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">einsteigen</div>
-                    <div class="verb-prep">+ in (Akkusativ)</div>
-                    <div class="verb-arabic">يركب</div>
-                    <div class="verb-example">Steig ins Auto ein!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">aussteigen</div>
-                    <div class="verb-prep">+ aus (Dativ)</div>
-                    <div class="verb-arabic">ينزل</div>
-                    <div class="verb-example">Ich steige aus dem Bus aus</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">aufmachen</div>
-                    <div class="verb-arabic">يفتح</div>
-                    <div class="verb-example">Mach die Tür auf!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">zumachen</div>
-                    <div class="verb-arabic">يغلق</div>
-                    <div class="verb-example">Mach das Fenster zu!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">anziehen</div>
-                    <div class="verb-arabic">يرتدي</div>
-                    <div class="verb-example">Zieh deine Jacke an!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">ausziehen</div>
-                    <div class="verb-arabic">يخلع</div>
-                    <div class="verb-example">Zieh die Schuhe aus!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">umziehen</div>
-                    <div class="verb-prep">+ nach (Dativ)</div>
-                    <div class="verb-arabic">ينتقل / يغير الملابس</div>
-                    <div class="verb-example">Ich ziehe nach Berlin um</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">fernsehen</div>
-                    <div class="verb-arabic">يشاهد التلفاز</div>
-                    <div class="verb-example">Ich sehe gern fern</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">vorbereiten</div>
-                    <div class="verb-prep">+ auf (Akkusativ)</div>
-                    <div class="verb-arabic">يُحضّر</div>
-                    <div class="verb-example">Ich bereite mich auf die Prüfung vor</div>
-                </div>
-            </div>
+        <!-- Search Results Tab -->
+        <div id="searchResults" class="tab-content">
+            <div class="verbs-grid" id="searchResultsGrid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">٤. أفعال التواصل (15 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">sprechen</div>
-                    <div class="verb-prep">+ mit (Dativ) / über (Akkusativ)</div>
-                    <div class="verb-arabic">يتحدث</div>
-                    <div class="verb-example">Ich spreche mit ihm über Politik</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">reden</div>
-                    <div class="verb-prep">+ mit (Dativ) / über (Akkusativ)</div>
-                    <div class="verb-arabic">يتكلم</div>
-                    <div class="verb-example">Wir reden über Politik</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erzählen</div>
-                    <div class="verb-prep">+ von (Dativ)</div>
-                    <div class="verb-arabic">يروي / يحكي</div>
-                    <div class="verb-example">Erzähl mir von deiner Reise!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">fragen</div>
-                    <div class="verb-prep">+ nach (Dativ)</div>
-                    <div class="verb-arabic">يسأل</div>
-                    <div class="verb-example">Ich frage nach dem Weg</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">antworten</div>
-                    <div class="verb-prep">+ auf (Akkusativ)</div>
-                    <div class="verb-arabic">يجيب</div>
-                    <div class="verb-example">Antworte auf die Frage!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erklären</div>
-                    <div class="verb-arabic">يشرح</div>
-                    <div class="verb-example">Erkläre mir das!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">verstehen</div>
-                    <div class="verb-arabic">يفهم</div>
-                    <div class="verb-example">Verstehst du mich?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">hören</div>
-                    <div class="verb-arabic">يسمع</div>
-                    <div class="verb-example">Ich höre Musik</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">zuhören</div>
-                    <div class="verb-arabic">يُنصت</div>
-                    <div class="verb-example">Hör mir zu!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">schreiben</div>
-                    <div class="verb-prep">+ an (Akkusativ)</div>
-                    <div class="verb-arabic">يكتب</div>
-                    <div class="verb-example">Ich schreibe an meinen Freund</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">lesen</div>
-                    <div class="verb-arabic">يقرأ</div>
-                    <div class="verb-example">Ich lese ein Buch</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">meinen</div>
-                    <div class="verb-arabic">يعني / يقصد</div>
-                    <div class="verb-example">Was meinst du?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">glauben</div>
-                    <div class="verb-prep">+ an (Akkusativ)</div>
-                    <div class="verb-arabic">يعتقد / يؤمن</div>
-                    <div class="verb-example">Ich glaube an dich</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">denken</div>
-                    <div class="verb-prep">+ an (Akkusativ) / über (Akkusativ)</div>
-                    <div class="verb-arabic">يفكر</div>
-                    <div class="verb-example">Ich denke an dich / über das Problem</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">kennen</div>
-                    <div class="verb-arabic">يعرف (شخص/مكان)</div>
-                    <div class="verb-example">Ich kenne ihn gut</div>
-                </div>
-            </div>
+        <!-- Tab 1 -->
+        <div id="tab1" class="tab-content active">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">٥. أفعال المشاعر والحالات (15 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">mögen</div>
-                    <div class="verb-arabic">يحب</div>
-                    <div class="verb-example">Ich mag Pizza</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">lieben</div>
-                    <div class="verb-arabic">يحب (بشدة)</div>
-                    <div class="verb-example">Ich liebe dich</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">hassen</div>
-                    <div class="verb-arabic">يكره</div>
-                    <div class="verb-example">Ich hasse Montage</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich freuen</div>
-                    <div class="verb-prep">+ auf (Akkusativ) / über (Akkusativ)</div>
-                    <div class="verb-arabic">يفرح</div>
-                    <div class="verb-example">Ich freue mich auf morgen / über das Geschenk</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich ärgern</div>
-                    <div class="verb-prep">+ über (Akkusativ)</div>
-                    <div class="verb-arabic">يغضب / ينزعج</div>
-                    <div class="verb-example">Ich ärgere mich über das Wetter</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich interessieren</div>
-                    <div class="verb-prep">+ für (Akkusativ)</div>
-                    <div class="verb-arabic">يهتم</div>
-                    <div class="verb-example">Ich interessiere mich für Musik</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">hoffen</div>
-                    <div class="verb-prep">+ auf (Akkusativ)</div>
-                    <div class="verb-arabic">يأمل</div>
-                    <div class="verb-example">Ich hoffe auf gutes Wetter</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">wünschen</div>
-                    <div class="verb-arabic">يتمنى</div>
-                    <div class="verb-example">Ich wünsche dir Glück</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich fühlen</div>
-                    <div class="verb-arabic">يشعر</div>
-                    <div class="verb-example">Wie fühlst du dich?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">lachen</div>
-                    <div class="verb-prep">+ über (Akkusativ)</div>
-                    <div class="verb-arabic">يضحك</div>
-                    <div class="verb-example">Er lacht über den Witz</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">weinen</div>
-                    <div class="verb-arabic">يبكي</div>
-                    <div class="verb-example">Das Baby weint</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich treffen</div>
-                    <div class="verb-prep">+ mit (Dativ)</div>
-                    <div class="verb-arabic">يتقابل</div>
-                    <div class="verb-example">Wir treffen uns mit Freunden</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">helfen</div>
-                    <div class="verb-prep">+ bei (Dativ)</div>
-                    <div class="verb-arabic">يساعد</div>
-                    <div class="verb-example">Kannst du mir bei den Hausaufgaben helfen?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">danken</div>
-                    <div class="verb-prep">+ für (Akkusativ)</div>
-                    <div class="verb-arabic">يشكر</div>
-                    <div class="verb-example">Ich danke dir für deine Hilfe</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">gratulieren</div>
-                    <div class="verb-prep">+ zu (Dativ)</div>
-                    <div class="verb-arabic">يهنئ</div>
-                    <div class="verb-example">Ich gratuliere dir zum Geburtstag</div>
-                </div>
-            </div>
+        <!-- Tab 2 -->
+        <div id="tab2" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">٦. أفعال الموداليتي والأفعال المساعدة (10 أفعال)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">können</div>
-                    <div class="verb-arabic">يستطيع</div>
-                    <div class="verb-example">Ich kann schwimmen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">müssen</div>
-                    <div class="verb-arabic">يجب</div>
-                    <div class="verb-example">Ich muss gehen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sollen</div>
-                    <div class="verb-arabic">ينبغي</div>
-                    <div class="verb-example">Du sollst lernen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">dürfen</div>
-                    <div class="verb-arabic">يُسمح له</div>
-                    <div class="verb-example">Darf ich fragen?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">wollen</div>
-                    <div class="verb-arabic">يريد</div>
-                    <div class="verb-example">Ich will nach Hause</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">mögen / möchten</div>
-                    <div class="verb-arabic">يحب / يود</div>
-                    <div class="verb-example">Ich möchte Kaffee</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">lassen</div>
-                    <div class="verb-arabic">يترك / يدع</div>
-                    <div class="verb-example">Lass mich in Ruhe!</div>
-                </div>
-            </div>
+        <!-- Tab 3 -->
+        <div id="tab3" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">٧. الأفعال الانعكاسية المهمة (12 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">sich waschen</div>
-                    <div class="verb-arabic">يغسل نفسه</div>
-                    <div class="verb-example">Ich wasche mir die Hände</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich duschen</div>
-                    <div class="verb-arabic">يستحم</div>
-                    <div class="verb-example">Ich dusche mich morgens</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich anziehen</div>
-                    <div class="verb-arabic">يرتدي ملابسه</div>
-                    <div class="verb-example">Zieh dich schnell an!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich ausziehen</div>
-                    <div class="verb-arabic">يخلع ملابسه</div>
-                    <div class="verb-example">Zieh dich aus!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich setzen</div>
-                    <div class="verb-arabic">يجلس</div>
-                    <div class="verb-example">Setz dich bitte!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich hinlegen</div>
-                    <div class="verb-arabic">يستلقي</div>
-                    <div class="verb-example">Ich lege mich ins Bett</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich erholen</div>
-                    <div class="verb-prep">+ von (Dativ)</div>
-                    <div class="verb-arabic">يستريح</div>
-                    <div class="verb-example">Ich erhole mich von der Arbeit</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich erinnern</div>
-                    <div class="verb-prep">+ an (Akkusativ)</div>
-                    <div class="verb-arabic">يتذكر</div>
-                    <div class="verb-example">Erinnerst du dich an mich?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich entscheiden</div>
-                    <div class="verb-prep">+ für (Akkusativ)</div>
-                    <div class="verb-arabic">يقرر</div>
-                    <div class="verb-example">Ich entscheide mich für Option A</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich beschweren</div>
-                    <div class="verb-prep">+ über (Akkusativ)</div>
-                    <div class="verb-arabic">يشتكي</div>
-                    <div class="verb-example">Er beschwert sich über den Service</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich verabreden</div>
-                    <div class="verb-prep">+ mit (Dativ)</div>
-                    <div class="verb-arabic">يحدد موعداً</div>
-                    <div class="verb-example">Wir verabreden uns mit Freunden</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich verspäten</div>
-                    <div class="verb-arabic">يتأخر</div>
-                    <div class="verb-example">Ich verspäte mich</div>
-                </div>
-            </div>
+        <!-- Tab 4 -->
+        <div id="tab4" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">٨. أفعال الدراسة والعمل (12 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">lernen</div>
-                    <div class="verb-arabic">يتعلم</div>
-                    <div class="verb-example">Ich lerne Deutsch</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">studieren</div>
-                    <div class="verb-arabic">يدرس (جامعياً)</div>
-                    <div class="verb-example">Ich studiere Medizin</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">üben</div>
-                    <div class="verb-arabic">يتدرب</div>
-                    <div class="verb-example">Ich übe jeden Tag</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">wiederholen</div>
-                    <div class="verb-arabic">يكرر</div>
-                    <div class="verb-example">Wiederhole bitte!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">unterrichten</div>
-                    <div class="verb-arabic">يدرّس</div>
-                    <div class="verb-example">Er unterrichtet Mathematik</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">lehren</div>
-                    <div class="verb-arabic">يُعلّم</div>
-                    <div class="verb-example">Sie lehrt Deutsch</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">prüfen</div>
-                    <div class="verb-arabic">يختبر / يفحص</div>
-                    <div class="verb-example">Der Lehrer prüft uns</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">bestehen</div>
-                    <div class="verb-prep">+ aus (Dativ) / auf (Dativ)</div>
-                    <div class="verb-arabic">ينجح / يجتاز / يتكون من</div>
-                    <div class="verb-example">Ich bestehe die Prüfung / Das Team besteht aus 5 Personen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">verdienen</div>
-                    <div class="verb-arabic">يكسب / يستحق</div>
-                    <div class="verb-example">Ich verdiene 2000 Euro</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">suchen</div>
-                    <div class="verb-prep">+ nach (Dativ)</div>
-                    <div class="verb-arabic">يبحث</div>
-                    <div class="verb-example">Ich suche nach Arbeit</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich bewerben</div>
-                    <div class="verb-prep">+ um (Akkusativ) / bei (Dativ)</div>
-                    <div class="verb-arabic">يتقدم (لوظيفة)</div>
-                    <div class="verb-example">Ich bewerbe mich um die Stelle bei Siemens</div>
-                </div>
-            </div>
+        <!-- Tab 5 -->
+        <div id="tab5" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">٩. أفعال الطقس والطبيعة (8 أفعال)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">regnen</div>
-                    <div class="verb-arabic">تمطر</div>
-                    <div class="verb-example">Es regnet heute</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">schneien</div>
-                    <div class="verb-arabic">تثلج</div>
-                    <div class="verb-example">Es schneit im Winter</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">scheinen</div>
-                    <div class="verb-arabic">تشرق</div>
-                    <div class="verb-example">Die Sonne scheint</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">wachsen</div>
-                    <div class="verb-arabic">ينمو</div>
-                    <div class="verb-example">Die Pflanzen wachsen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">blühen</div>
-                    <div class="verb-arabic">يزهر</div>
-                    <div class="verb-example">Die Rosen blühen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">brennen</div>
-                    <div class="verb-arabic">يحترق</div>
-                    <div class="verb-example">Das Feuer brennt</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">leuchten</div>
-                    <div class="verb-arabic">يضيء / يتوهج</div>
-                    <div class="verb-example">Die Lampe leuchtet hell</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">steigen</div>
-                    <div class="verb-arabic">يرتفع</div>
-                    <div class="verb-example">Die Preise steigen</div>
-                </div>
-            </div>
+        <!-- Tab 6 -->
+        <div id="tab6" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">١٠. أفعال متنوعة مهمة (15 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">versuchen</div>
-                    <div class="verb-arabic">يحاول</div>
-                    <div class="verb-example">Ich versuche es noch mal</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">probieren</div>
-                    <div class="verb-arabic">يجرب</div>
-                    <div class="verb-example">Probier mal!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">gewinnen</div>
-                    <div class="verb-arabic">يفوز / يربح</div>
-                    <div class="verb-example">Wir gewinnen das Spiel</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">verlieren</div>
-                    <div class="verb-arabic">يخسر</div>
-                    <div class="verb-example">Ich verliere mein Handy</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">ändern</div>
-                    <div class="verb-arabic">يغير</div>
-                    <div class="verb-example">Ich ändere meinen Plan</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">verbessern</div>
-                    <div class="verb-arabic">يحسّن</div>
-                    <div class="verb-example">Ich verbessere mein Deutsch</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">reparieren</div>
-                    <div class="verb-arabic">يصلح</div>
-                    <div class="verb-example">Ich repariere mein Auto</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">kaputtmachen</div>
-                    <div class="verb-arabic">يكسر</div>
-                    <div class="verb-example">Mach es nicht kaputt!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">vergessen</div>
-                    <div class="verb-arabic">ينسى</div>
-                    <div class="verb-example">Vergiss nicht!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erinnern</div>
-                    <div class="verb-prep">+ an (Akkusativ)</div>
-                    <div class="verb-arabic">يذكّر</div>
-                    <div class="verb-example">Erinnere mich an den Termin!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">zeigen</div>
-                    <div class="verb-arabic">يُظهر / يُري</div>
-                    <div class="verb-example">Zeig mir das Foto!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">benutzen</div>
-                    <div class="verb-arabic">يستخدم</div>
-                    <div class="verb-example">Ich benutze mein Handy</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sparen</div>
-                    <div class="verb-arabic">يوفر / يدخر</div>
-                    <div class="verb-example">Ich spare Geld</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">ausgeben</div>
-                    <div class="verb-prep">+ für (Akkusativ)</div>
-                    <div class="verb-arabic">ينفق</div>
-                    <div class="verb-example">Ich gebe viel Geld für Kleidung aus</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erlauben</div>
-                    <div class="verb-arabic">يسمح</div>
-                    <div class="verb-example">Meine Eltern erlauben es</div>
-                </div>
-            </div>
+        <!-- Tab 7 -->
+        <div id="tab7" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">١١. أفعال التفكير والرأي (15 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">überlegen</div>
-                    <div class="verb-arabic">يفكر / يتأمل</div>
-                    <div class="verb-example">Ich überlege mir das</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">nachdenken</div>
-                    <div class="verb-prep">+ über (Akkusativ)</div>
-                    <div class="verb-arabic">يتأمل / يفكر مليّاً</div>
-                    <div class="verb-example">Denk über das Problem nach!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sich vorstellen</div>
-                    <div class="verb-arabic">يتخيل / يتصور</div>
-                    <div class="verb-example">Ich stelle mir das vor</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erwarten</div>
-                    <div class="verb-prep">+ von (Dativ)</div>
-                    <div class="verb-arabic">يتوقع</div>
-                    <div class="verb-example">Ich erwarte viel von dir</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">vermuten</div>
-                    <div class="verb-arabic">يفترض / يظن</div>
-                    <div class="verb-example">Ich vermute, dass er kommt</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">annehmen</div>
-                    <div class="verb-arabic">يفترض</div>
-                    <div class="verb-example">Ich nehme an, dass...</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">zweifeln</div>
-                    <div class="verb-prep">+ an (Dativ)</div>
-                    <div class="verb-arabic">يشك</div>
-                    <div class="verb-example">Ich zweifle an seiner Ehrlichkeit</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">befürchten</div>
-                    <div class="verb-arabic">يخشى</div>
-                    <div class="verb-example">Ich befürchte das Schlimmste</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">vorschlagen</div>
-                    <div class="verb-arabic">يقترح</div>
-                    <div class="verb-example">Ich schlage vor, dass wir gehen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">empfehlen</div>
-                    <div class="verb-arabic">ينصح / يوصي</div>
-                    <div class="verb-example">Ich empfehle dir dieses Buch</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">raten</div>
-                    <div class="verb-prep">+ zu (Dativ)</div>
-                    <div class="verb-arabic">ينصح</div>
-                    <div class="verb-example">Ich rate dir zu warten</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">warnen</div>
-                    <div class="verb-prep">+ vor (Dativ)</div>
-                    <div class="verb-arabic">يحذّر</div>
-                    <div class="verb-example">Ich warne dich vor der Gefahr!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">behaupten</div>
-                    <div class="verb-arabic">يزعم / يدّعي</div>
-                    <div class="verb-example">Er behauptet, dass...</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">widersprechen</div>
-                    <div class="verb-prep">+ Dativ</div>
-                    <div class="verb-arabic">يناقض / يعارض</div>
-                    <div class="verb-example">Ich widerspreche dir</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">entscheiden</div>
-                    <div class="verb-arabic">يقرر</div>
-                    <div class="verb-example">Ich entscheide mich dafür</div>
-                </div>
-            </div>
+        <!-- Tab 8 -->
+        <div id="tab8" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">١٢. أفعال الإحساس والإدراك (12 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">bemerken</div>
-                    <div class="verb-arabic">يلاحظ</div>
-                    <div class="verb-example">Hast du das bemerkt?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">merken</div>
-                    <div class="verb-arabic">يلاحظ / يشعر</div>
-                    <div class="verb-example">Ich merke nichts</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">spüren</div>
-                    <div class="verb-arabic">يشعر / يحس</div>
-                    <div class="verb-example">Ich spüre Schmerzen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">riechen</div>
-                    <div class="verb-prep">+ nach (Dativ)</div>
-                    <div class="verb-arabic">يشم</div>
-                    <div class="verb-example">Es riecht nach Kaffee</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">schmecken</div>
-                    <div class="verb-prep">+ nach (Dativ)</div>
-                    <div class="verb-arabic">يتذوق</div>
-                    <div class="verb-example">Das schmeckt nach Schokolade</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">berühren</div>
-                    <div class="verb-arabic">يلمس</div>
-                    <div class="verb-example">Berühr das nicht!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erkennen</div>
-                    <div class="verb-prep">+ an (Dativ)</div>
-                    <div class="verb-arabic">يتعرف / يدرك</div>
-                    <div class="verb-example">Ich erkenne ihn an seiner Stimme</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">wahrnehmen</div>
-                    <div class="verb-arabic">يدرك / يلاحظ</div>
-                    <div class="verb-example">Ich nehme eine Veränderung wahr</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">beobachten</div>
-                    <div class="verb-arabic">يراقب</div>
-                    <div class="verb-example">Ich beobachte die Vögel</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">betrachten</div>
-                    <div class="verb-arabic">ينظر إلى / يتأمل</div>
-                    <div class="verb-example">Betrachte das Bild!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">schauen</div>
-                    <div class="verb-prep">+ auf (Akkusativ)</div>
-                    <div class="verb-arabic">ينظر</div>
-                    <div class="verb-example">Schau auf die Tafel!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">achten</div>
-                    <div class="verb-prep">+ auf (Akkusativ)</div>
-                    <div class="verb-arabic">ينتبه إلى</div>
-                    <div class="verb-example">Achte auf den Verkehr!</div>
-                </div>
-            </div>
+        <!-- Tab 9 -->
+        <div id="tab9" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">١٣. أفعال التنظيم والترتيب (12 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">planen</div>
-                    <div class="verb-arabic">يخطط</div>
-                    <div class="verb-example">Ich plane eine Reise</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">organisieren</div>
-                    <div class="verb-arabic">ينظم</div>
-                    <div class="verb-example">Wer organisiert die Party?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">vorbereiten</div>
-                    <div class="verb-arabic">يُحضّر</div>
-                    <div class="verb-example">Ich bereite das Essen vor</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">ordnen</div>
-                    <div class="verb-arabic">يرتب</div>
-                    <div class="verb-example">Ordne deine Sachen!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">sortieren</div>
-                    <div class="verb-arabic">يصنّف</div>
-                    <div class="verb-example">Ich sortiere die Dateien</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">aufräumen</div>
-                    <div class="verb-arabic">يرتب / ينظف</div>
-                    <div class="verb-example">Räum dein Zimmer auf!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">putzen</div>
-                    <div class="verb-arabic">ينظف</div>
-                    <div class="verb-example">Ich putze die Wohnung</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">reinigen</div>
-                    <div class="verb-arabic">ينظف (رسمي)</div>
-                    <div class="verb-example">Die Reinigungskraft reinigt</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">waschen</div>
-                    <div class="verb-arabic">يغسل</div>
-                    <div class="verb-example">Ich wasche die Wäsche</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">trocknen</div>
-                    <div class="verb-arabic">يجفف</div>
-                    <div class="verb-example">Trockne die Teller!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">bügeln</div>
-                    <div class="verb-arabic">يكوي</div>
-                    <div class="verb-example">Ich bügle mein Hemd</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">packen</div>
-                    <div class="verb-arabic">يحزم / يعبّئ</div>
-                    <div class="verb-example">Ich packe meinen Koffer</div>
-                </div>
-            </div>
+        <!-- Tab 10 -->
+        <div id="tab10" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">١٤. أفعال الطلب والعرض (10 أفعال)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">bitten</div>
-                    <div class="verb-prep">+ um (Akkusativ)</div>
-                    <div class="verb-arabic">يطلب (بأدب)</div>
-                    <div class="verb-example">Ich bitte dich um Hilfe</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">fordern</div>
-                    <div class="verb-arabic">يطالب</div>
-                    <div class="verb-example">Die Arbeiter fordern mehr Lohn</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">verlangen</div>
-                    <div class="verb-prep">+ von (Dativ)</div>
-                    <div class="verb-arabic">يطلب / يتطلب</div>
-                    <div class="verb-example">Was verlangst du von mir?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">bestellen</div>
-                    <div class="verb-arabic">يطلب / يحجز</div>
-                    <div class="verb-example">Ich bestelle eine Pizza</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">reservieren</div>
-                    <div class="verb-arabic">يحجز</div>
-                    <div class="verb-example">Ich reserviere einen Tisch</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">buchen</div>
-                    <div class="verb-arabic">يحجز</div>
-                    <div class="verb-example">Ich buche einen Flug</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">anbieten</div>
-                    <div class="verb-arabic">يعرض</div>
-                    <div class="verb-example">Ich biete dir meine Hilfe an</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">vorschlagen</div>
-                    <div class="verb-arabic">يقترح</div>
-                    <div class="verb-example">Ich schlage ein Treffen vor</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">ablehnen</div>
-                    <div class="verb-arabic">يرفض</div>
-                    <div class="verb-example">Ich lehne das Angebot ab</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">akzeptieren</div>
-                    <div class="verb-arabic">يقبل</div>
-                    <div class="verb-example">Ich akzeptiere deine Entschuldigung</div>
-                </div>
-            </div>
+        <!-- Tab 11 -->
+        <div id="tab11" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">١٥. أفعال المشاكل والحلول (12 فعل)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">lösen</div>
-                    <div class="verb-arabic">يحل</div>
-                    <div class="verb-example">Ich löse das Problem</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">klären</div>
-                    <div class="verb-arabic">يوضح / يحل</div>
-                    <div class="verb-example">Wir klären das Missverständnis</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">beheben</div>
-                    <div class="verb-arabic">يصلح / يعالج</div>
-                    <div class="verb-example">Der Fehler wurde behoben</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">funktionieren</div>
-                    <div class="verb-arabic">يعمل (آلة)</div>
-                    <div class="verb-example">Das Handy funktioniert nicht</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">klappen</div>
-                    <div class="verb-arabic">ينجح / يسير بشكل جيد</div>
-                    <div class="verb-example">Hat alles geklappt?</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">scheitern</div>
-                    <div class="verb-prep">+ an (Dativ)</div>
-                    <div class="verb-arabic">يفشل</div>
-                    <div class="verb-example">Der Plan ist an der Finanzierung gescheitert</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">misslingen</div>
-                    <div class="verb-arabic">لا ينجح / يفشل</div>
-                    <div class="verb-example">Der Versuch ist misslungen</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">gelingen</div>
-                    <div class="verb-arabic">ينجح</div>
-                    <div class="verb-example">Es ist mir gelungen!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">schaffen</div>
-                    <div class="verb-arabic">ينجز / يستطيع</div>
-                    <div class="verb-example">Ich schaffe das!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erreichen</div>
-                    <div class="verb-arabic">يصل إلى / يحقق</div>
-                    <div class="verb-example">Ich erreiche mein Ziel</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erfüllen</div>
-                    <div class="verb-arabic">يحقق / يُنجز</div>
-                    <div class="verb-example">Ich erfülle meinen Traum</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">vermeiden</div>
-                    <div class="verb-arabic">يتجنب</div>
-                    <div class="verb-example">Vermeide Fehler!</div>
-                </div>
-            </div>
+        <!-- Tab 12 -->
+        <div id="tab12" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
-        <div class="category">
-            <div class="category-title">١٦. أفعال التواصل المتقدم (10 أفعال)</div>
-            <div class="verbs-grid">
-                <div class="verb-card">
-                    <div class="verb-german">informieren</div>
-                    <div class="verb-prep">+ über (Akkusativ)</div>
-                    <div class="verb-arabic">يُعلم / يُخبر</div>
-                    <div class="verb-example">Ich informiere dich über die Änderung</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">mitteilen</div>
-                    <div class="verb-arabic">يُبلّغ</div>
-                    <div class="verb-example">Ich teile dir etwas mit</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">beschreiben</div>
-                    <div class="verb-arabic">يصف</div>
-                    <div class="verb-example">Beschreib mir dein Auto!</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">berichten</div>
-                    <div class="verb-prep">+ über (Akkusativ)</div>
-                    <div class="verb-arabic">يُبلّغ / يذكر</div>
-                    <div class="verb-example">Die Zeitung berichtet über das Ereignis</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">erwähnen</div>
-                    <div class="verb-arabic">يذكر</div>
-                    <div class="verb-example">Er hat das nicht erwähnt</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">betonen</div>
-                    <div class="verb-arabic">يُشدد على</div>
-                    <div class="verb-example">Ich betone, dass...</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">hinweisen</div>
-                    <div class="verb-prep">+ auf (Akkusativ)</div>
-                    <div class="verb-arabic">يُشير إلى</div>
-                    <div class="verb-example">Ich weise auf die Gefahr hin</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">zugeben</div>
-                    <div class="verb-arabic">يعترف</div>
-                    <div class="verb-example">Ich gebe meinen Fehler zu</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">leugnen</div>
-                    <div class="verb-arabic">ينكر</div>
-                    <div class="verb-example">Er leugnet die Tat</div>
-                </div>
-                <div class="verb-card">
-                    <div class="verb-german">bestätigen</div>
-                    <div class="verb-arabic">يؤكد</div>
-                    <div class="verb-example">Bestätige deine E-Mail!</div>
-                </div>
-            </div>
+        <!-- Tab 13 -->
+        <div id="tab13" class="tab-content">
+            <div class="verbs-grid"></div>
+        </div>
+
+        <!-- Tab 14 -->
+        <div id="tab14" class="tab-content">
+            <div class="verbs-grid"></div>
+        </div>
+
+        <!-- Tab 15 -->
+        <div id="tab15" class="tab-content">
+            <div class="verbs-grid"></div>
+        </div>
+
+        <!-- Tab 16 -->
+        <div id="tab16" class="tab-content">
+            <div class="verbs-grid"></div>
+        </div>
+
+        <!-- Tab 17 -->
+        <div id="tab17" class="tab-content">
+            <div class="verbs-grid"></div>
+        </div>
+
+        <!-- Tab 18 -->
+        <div id="tab18" class="tab-content">
+            <div class="verbs-grid"></div>
+        </div>
+
+        <!-- Tab 19 -->
+        <div id="tab19" class="tab-content">
+            <div class="verbs-grid"></div>
+        </div>
+
+        <!-- Tab 20 -->
+        <div id="tab20" class="tab-content">
+            <div class="verbs-grid"></div>
         </div>
 
         <div class="footer">
-            <p><strong>💡 نصائح للحفظ:</strong></p>
-            <p>احفظ 5-7 أفعال يومياً • استخدم كل فعل في جملة من حياتك • راجع الأفعال القديمة كل 3 أيام</p>
-            <p>🎯 الأفعال الموضحة بحروف الجر باللون البنفسجي - احفظ الفعل مع حرف الجر كوحدة واحدة!</p>
-            <p style="margin-top: 10px; color: #999;">📅 مستوى A2-B1 - 233 فعل أساسي ومهم مع حروف الجر</p>
+            <p><strong>💡 نصائح:</strong> احفظ 5-7 أفعال يومياً • استخدم كل فعل في جملة</p>
+            <p>🎯 حروف الجر بالبنفسجي - احفظها مع الفعل | 📌 اضغط للمشتقات | 🔍 استخدم البحث للعثور على الأفعال</p>
         </div>
     </div>
+
+    <div id="verbModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <div class="modal-verb-title" id="modalVerbTitle"></div>
+                <div class="modal-verb-meaning" id="modalVerbMeaning"></div>
+                <div id="modalPrep" style="color: #9333ea; font-weight: 600; margin-top: 10px; direction: ltr; text-align: center;"></div>
+            </div>
+            <div class="derivatives-section" id="derivativesSection"></div>
+        </div>
+    </div>
+
+    <script>
+const verbsData = {
+    tab1: [ // الأفعال الأساسية اليومية
+        {verb: "sein", meaning: "يكون", example: "Ich bin Lehrer", prep: "", derivatives: []},
+        {verb: "haben", meaning: "يملك", example: "Ich habe Zeit", prep: "", derivatives: []},
+        {verb: "werden", meaning: "يصبح", example: "Er wird Arzt", prep: "", derivatives: []},
+        {verb: "machen", meaning: "يفعل / يصنع", example: "Was machst du?", prep: "", derivatives: [
+            {verb: "aufmachen", meaning: "يفتح", example: "Mach die Tür auf!"},
+            {verb: "zumachen", meaning: "يغلق", example: "Mach das Fenster zu!"},
+            {verb: "anmachen", meaning: "يشغّل", example: "Mach das Licht an!"},
+            {verb: "ausmachen", meaning: "يطفئ", example: "Mach das Licht aus!"}
+        ]},
+        {verb: "gehen", meaning: "يذهب", example: "Ich gehe nach Hause", prep: "", derivatives: [
+            {verb: "ausgehen", meaning: "يخرج", example: "Wir gehen heute aus"},
+            {verb: "spazieren gehen", meaning: "يتمشى", example: "Ich gehe spazieren"},
+            {verb: "weggehen", meaning: "يغادر", example: "Geh weg!"}
+        ]},
+        {verb: "kommen", meaning: "يأتي", example: "Er kommt morgen", prep: "", derivatives: [
+            {verb: "ankommen", meaning: "يصل", example: "Wir kommen um 10 an"},
+            {verb: "zurückkommen", meaning: "يعود", example: "Wann kommst du zurück?"},
+            {verb: "mitkommen", meaning: "يرافق", example: "Kommst du mit?"}
+        ]},
+        {verb: "sehen", meaning: "يرى", example: "Ich sehe dich", prep: "", derivatives: [
+            {verb: "fernsehen", meaning: "يشاهد التلفاز", example: "Ich sehe gern fern"},
+            {verb: "aussehen", meaning: "يبدو", example: "Du siehst gut aus!"},
+            {verb: "ansehen", meaning: "ينظر إلى", example: "Sieh mich an!"}
+        ]},
+        {verb: "nehmen", meaning: "يأخذ", example: "Nimm ein Taxi!", prep: "", derivatives: [
+            {verb: "mitnehmen", meaning: "يأخذ معه", example: "Nimm einen Regenschirm mit!"},
+            {verb: "abnehmen", meaning: "ينقص", example: "Ich nehme 5 kg ab"},
+            {verb: "teilnehmen", meaning: "يشارك", example: "Ich nehme am Kurs teil"}
+        ]},
+        {verb: "geben", meaning: "يعطي", example: "Gib mir das Buch", prep: "", derivatives: [
+            {verb: "aufgeben", meaning: "يستسلم", example: "Gib nicht auf!"},
+            {verb: "ausgeben", meaning: "ينفق", example: "Ich gebe viel Geld aus"},
+            {verb: "zugeben", meaning: "يعترف", example: "Ich gebe meinen Fehler zu"}
+        ]},
+        {verb: "wissen", meaning: "يعرف", example: "Ich weiß es nicht", prep: "", derivatives: []},
+        {verb: "sagen", meaning: "يقول", example: "Was sagst du?", prep: "", derivatives: [
+            {verb: "absagen", meaning: "يلغي", example: "Ich sage den Termin ab"},
+            {verb: "zusagen", meaning: "يوافق", example: "Ich sage zu"}
+        ]},
+        {verb: "arbeiten", meaning: "يعمل", example: "Ich arbeite bei Siemens", prep: "+ bei (Dativ) / an (Dativ)", derivatives: []},
+        {verb: "leben", meaning: "يعيش", example: "Wo lebst du?", prep: "", derivatives: []},
+        {verb: "essen", meaning: "يأكل", example: "Was isst du gern?", prep: "", derivatives: []},
+        {verb: "trinken", meaning: "يشرب", example: "Ich trinke Kaffee", prep: "", derivatives: []},
+        {verb: "schlafen", meaning: "ينام", example: "Ich schlafe 8 Stunden", prep: "", derivatives: [
+            {verb: "einschlafen", meaning: "يغفو", example: "Ich schlafe schnell ein"},
+            {verb: "verschlafen", meaning: "ينام أكثر", example: "Ich habe verschlafen!"}
+        ]},
+        {verb: "wohnen", meaning: "يسكن", example: "Ich wohne in Berlin", prep: "+ in (Dativ)", derivatives: []},
+        {verb: "heißen", meaning: "يُدعى", example: "Wie heißt du?", prep: "", derivatives: []},
+        {verb: "brauchen", meaning: "يحتاج", example: "Ich brauche Hilfe", prep: "", derivatives: []},
+        {verb: "bleiben", meaning: "يبقى", example: "Bleib hier!", prep: "", derivatives: []},
+        {verb: "finden", meaning: "يجد", example: "Ich finde es gut", prep: "", derivatives: []},
+        {verb: "kaufen", meaning: "يشتري", example: "Ich kaufe Brot", prep: "", derivatives: [
+            {verb: "einkaufen", meaning: "يتسوق", example: "Ich kaufe im Supermarkt ein"},
+            {verb: "verkaufen", meaning: "يبيع", example: "Ich verkaufe mein Auto"}
+        ]},
+        {verb: "kosten", meaning: "يكلف", example: "Was kostet das?", prep: "", derivatives: []},
+        {verb: "bezahlen", meaning: "يدفع", example: "Ich bezahle für das Essen", prep: "+ für (Akkusativ)", derivatives: []},
+        {verb: "öffnen", meaning: "يفتح", example: "Öffne die Tür!", prep: "", derivatives: []},
+        {verb: "schließen", meaning: "يغلق", example: "Schließ das Fenster!", prep: "", derivatives: []},
+        {verb: "beginnen", meaning: "يبدأ", example: "Ich beginne mit der Arbeit", prep: "+ mit (Dativ)", derivatives: [
+            {verb: "anfangen", meaning: "يبدأ", example: "Ich fange um 9 an"}
+        ]},
+        {verb: "enden", meaning: "ينتهي", example: "Der Film endet mit Happy End", prep: "+ mit (Dativ)", derivatives: [
+            {verb: "aufhören", meaning: "يتوقف", example: "Hör auf!"}
+        ]},
+        {verb: "dauern", meaning: "يستغرق", example: "Es dauert 2 Stunden", prep: "", derivatives: []},
+        {verb: "passieren", meaning: "يحدث", example: "Was ist passiert?", prep: "", derivatives: []}
+    ],
+    
+    tab2: [ // أفعال الحركة والانتقال
+        {verb: "fahren", meaning: "يقود / يسافر", example: "Ich fahre mit dem Auto", prep: "+ mit (Dativ) / nach (Dativ)", derivatives: [
+            {verb: "abfahren", meaning: "يغادر", example: "Der Zug fährt um 8 ab"},
+            {verb: "mitfahren", meaning: "يركب مع", example: "Fährst du mit?"}
+        ]},
+        {verb: "fliegen", meaning: "يطير", example: "Wir fliegen nach Paris", prep: "+ nach (Dativ)", derivatives: []},
+        {verb: "laufen", meaning: "يمشي / يجري", example: "Er läuft schnell", prep: "", derivatives: [
+            {verb: "weglaufen", meaning: "يهرب", example: "Lauf nicht weg!"}
+        ]},
+        {verb: "rennen", meaning: "يركض", example: "Die Kinder rennen", prep: "", derivatives: []},
+        {verb: "steigen", meaning: "يصعد", example: "Die Preise steigen", prep: "", derivatives: [
+            {verb: "einsteigen", meaning: "يركب", example: "Steig ins Auto ein!"},
+            {verb: "aussteigen", meaning: "ينزل", example: "Ich steige hier aus"},
+            {verb: "umsteigen", meaning: "يغيّر", example: "Ich steige um"}
+        ]},
+        {verb: "fallen", meaning: "يسقط", example: "Der Apfel fällt", prep: "", derivatives: [
+            {verb: "einfallen", meaning: "يخطر بباله", example: "Mir fällt etwas ein"}
+        ]},
+        {verb: "bringen", meaning: "يُحضر", example: "Bring mir Wasser!", prep: "", derivatives: [
+            {verb: "mitbringen", meaning: "يحضر معه", example: "Bring Kuchen mit!"},
+            {verb: "zurückbringen", meaning: "يعيد", example: "Bring das Buch zurück!"}
+        ]},
+        {verb: "holen", meaning: "يجلب", example: "Hol die Tasche!", prep: "", derivatives: [
+            {verb: "abholen", meaning: "يستلم", example: "Ich hole dich ab"}
+        ]},
+        {verb: "tragen", meaning: "يحمل", example: "Ich trage den Koffer", prep: "", derivatives: []},
+        {verb: "stellen", meaning: "يضع (واقفاً)", example: "Stell die Flasche hier", prep: "", derivatives: [
+            {verb: "vorstellen", meaning: "يقدّم", example: "Ich stelle mich vor"}
+        ]},
+        {verb: "legen", meaning: "يضع (مستلقياً)", example: "Leg das Buch auf den Tisch", prep: "+ auf (Akkusativ)", derivatives: []},
+        {verb: "setzen", meaning: "يُجلس", example: "Setz dich!", prep: "", derivatives: [
+            {verb: "sich setzen", meaning: "يجلس", example: "Setz dich bitte!"}
+        ]},
+        {verb: "stehen", meaning: "يقف", example: "Er steht dort", prep: "", derivatives: [
+            {verb: "aufstehen", meaning: "ينهض", example: "Ich stehe um 7 auf"},
+            {verb: "verstehen", meaning: "يفهم", example: "Verstehst du mich?"},
+            {verb: "bestehen", meaning: "ينجح", example: "Ich bestehe die Prüfung"}
+        ]},
+        {verb: "liegen", meaning: "يستلقي", example: "Das Buch liegt hier", prep: "", derivatives: []},
+        {verb: "sitzen", meaning: "يجلس", example: "Ich sitze am Fenster", prep: "+ an/bei (Dativ)", derivatives: []}
+    ],
+
+    tab3: [ // الأفعال القابلة للفصل
+        {verb: "aufstehen", meaning: "يستيقظ / ينهض", example: "Ich stehe um 7 auf", prep: "", derivatives: []},
+        {verb: "aufwachen", meaning: "يستيقظ", example: "Ich wache früh auf", prep: "", derivatives: []},
+        {verb: "einschlafen", meaning: "ينام / يغفو", example: "Er schläft schnell ein", prep: "", derivatives: []},
+        {verb: "ausgehen", meaning: "يخرج", example: "Wir gehen heute aus", prep: "", derivatives: []},
+        {verb: "einkaufen", meaning: "يتسوق", example: "Ich kaufe im Supermarkt ein", prep: "", derivatives: []},
+        {verb: "anrufen", meaning: "يتصل", example: "Ruf mich an!", prep: "", derivatives: []},
+        {verb: "abholen", meaning: "يستلم", example: "Ich hole dich ab", prep: "", derivatives: []},
+        {verb: "mitnehmen", meaning: "يأخذ معه", example: "Nimm einen Regenschirm mit!", prep: "", derivatives: []},
+        {verb: "zurückkommen", meaning: "يعود", example: "Wann kommst du zurück?", prep: "", derivatives: []},
+        {verb: "ankommen", meaning: "يصل", example: "Ich komme in Berlin an", prep: "+ in (Dativ)", derivatives: []},
+        {verb: "abfahren", meaning: "يغادر", example: "Der Bus fährt um 8 ab", prep: "", derivatives: []},
+        {verb: "einsteigen", meaning: "يركب", example: "Steig ins Auto ein!", prep: "+ in (Akkusativ)", derivatives: []},
+        {verb: "aussteigen", meaning: "ينزل", example: "Ich steige aus dem Bus aus", prep: "+ aus (Dativ)", derivatives: []},
+        {verb: "aufmachen", meaning: "يفتح", example: "Mach die Tür auf!", prep: "", derivatives: []},
+        {verb: "zumachen", meaning: "يغلق", example: "Mach das Fenster zu!", prep: "", derivatives: []},
+        {verb: "anziehen", meaning: "يرتدي", example: "Zieh deine Jacke an!", prep: "", derivatives: []},
+        {verb: "ausziehen", meaning: "يخلع", example: "Zieh die Schuhe aus!", prep: "", derivatives: []},
+        {verb: "umziehen", meaning: "ينتقل", example: "Ich ziehe nach Berlin um", prep: "+ nach (Dativ)", derivatives: []},
+        {verb: "fernsehen", meaning: "يشاهد التلفاز", example: "Ich sehe gern fern", prep: "", derivatives: []},
+        {verb: "vorbereiten", meaning: "يُحضّر", example: "Ich bereite mich auf die Prüfung vor", prep: "+ auf (Akkusativ)", derivatives: []}
+    ],
+
+    tab4: [ // أفعال التواصل
+        {verb: "sprechen", meaning: "يتحدث", example: "Ich spreche mit ihm über Politik", prep: "+ mit (Dativ) / über (Akkusativ)", derivatives: [
+            {verb: "besprechen", meaning: "يناقش", example: "Wir besprechen das Problem"}
+        ]},
+        {verb: "reden", meaning: "يتكلم", example: "Wir reden über Politik", prep: "+ mit (Dativ) / über (Akkusativ)", derivatives: []},
+        {verb: "erzählen", meaning: "يروي / يحكي", example: "Erzähl mir von deiner Reise!", prep: "+ von (Dativ)", derivatives: []},
+        {verb: "fragen", meaning: "يسأل", example: "Ich frage nach dem Weg", prep: "+ nach (Dativ)", derivatives: []},
+        {verb: "antworten", meaning: "يجيب", example: "Antworte auf die Frage!", prep: "+ auf (Akkusativ)", derivatives: [
+            {verb: "beantworten", meaning: "يجيب على", example: "Beantworte meine Frage!"}
+        ]},
+        {verb: "erklären", meaning: "يشرح", example: "Erkläre mir das!", prep: "", derivatives: []},
+        {verb: "verstehen", meaning: "يفهم", example: "Verstehst du mich?", prep: "", derivatives: []},
+        {verb: "hören", meaning: "يسمع", example: "Ich höre Musik", prep: "", derivatives: [
+            {verb: "zuhören", meaning: "يُنصت", example: "Hör mir zu!"}
+        ]},
+        {verb: "zuhören", meaning: "يُنصت", example: "Hör mir zu!", prep: "", derivatives: []},
+        {verb: "schreiben", meaning: "يكتب", example: "Ich schreibe an meinen Freund", prep: "+ an (Akkusativ)", derivatives: [
+            {verb: "aufschreiben", meaning: "يدوّن", example: "Schreib die Adresse auf!"},
+            {verb: "beschreiben", meaning: "يصف", example: "Beschreib mir dein Auto!"}
+        ]},
+        {verb: "lesen", meaning: "يقرأ", example: "Ich lese ein Buch", prep: "", derivatives: [
+            {verb: "vorlesen", meaning: "يقرأ بصوت عالٍ", example: "Lies mir vor!"}
+        ]},
+        {verb: "meinen", meaning: "يعني / يقصد", example: "Was meinst du?", prep: "", derivatives: []},
+        {verb: "glauben", meaning: "يعتقد / يؤمن", example: "Ich glaube an dich", prep: "+ an (Akkusativ)", derivatives: []},
+        {verb: "denken", meaning: "يفكر", example: "Ich denke an dich", prep: "+ an (Akkusativ) / über (Akkusativ)", derivatives: [
+            {verb: "nachdenken", meaning: "يتأمل", example: "Denk darüber nach!"}
+        ]},
+        {verb: "kennen", meaning: "يعرف (شخص/مكان)", example: "Ich kenne ihn gut", prep: "", derivatives: [
+            {verb: "erkennen", meaning: "يتعرف على", example: "Ich erkenne ihn"}
+        ]}
+    ],
+
+    tab5: [ // أفعال المشاعر والحالات
+        {verb: "mögen", meaning: "يحب", example: "Ich mag Pizza", prep: "", derivatives: []},
+        {verb: "lieben", meaning: "يحب (بشدة)", example: "Ich liebe dich", prep: "", derivatives: []},
+        {verb: "hassen", meaning: "يكره", example: "Ich hasse Montage", prep: "", derivatives: []},
+        {verb: "sich freuen", meaning: "يفرح", example: "Ich freue mich auf morgen", prep: "+ auf (Akkusativ) / über (Akkusativ)", derivatives: []},
+        {verb: "sich ärgern", meaning: "يغضب / ينزعج", example: "Ich ärgere mich über das Wetter", prep: "+ über (Akkusativ)", derivatives: []},
+        {verb: "sich interessieren", meaning: "يهتم", example: "Ich interessiere mich für Musik", prep: "+ für (Akkusativ)", derivatives: []},
+        {verb: "hoffen", meaning: "يأمل", example: "Ich hoffe auf gutes Wetter", prep: "+ auf (Akkusativ)", derivatives: []},
+        {verb: "wünschen", meaning: "يتمنى", example: "Ich wünsche dir Glück", prep: "", derivatives: []},
+        {verb: "sich fühlen", meaning: "يشعر", example: "Wie fühlst du dich?", prep: "", derivatives: []},
+        {verb: "lachen", meaning: "يضحك", example: "Er lacht über den Witz", prep: "+ über (Akkusativ)", derivatives: []},
+        {verb: "weinen", meaning: "يبكي", example: "Das Baby weint", prep: "", derivatives: []},
+        {verb: "sich treffen", meaning: "يتقابل", example: "Wir treffen uns mit Freunden", prep: "+ mit (Dativ)", derivatives: []},
+        {verb: "helfen", meaning: "يساعد", example: "Kannst du mir bei den Hausaufgaben helfen?", prep: "+ bei (Dativ)", derivatives: []},
+        {verb: "danken", meaning: "يشكر", example: "Ich danke dir für deine Hilfe", prep: "+ für (Akkusativ)", derivatives: []},
+        {verb: "gratulieren", meaning: "يهنئ", example: "Ich gratuliere dir zum Geburtstag", prep: "+ zu (Dativ)", derivatives: []}
+    ],
+
+    tab6: [ // أفعال الموداليتي
+        {verb: "können", meaning: "يستطيع", example: "Ich kann schwimmen", prep: "", derivatives: []},
+        {verb: "müssen", meaning: "يجب", example: "Ich muss gehen", prep: "", derivatives: []},
+        {verb: "sollen", meaning: "ينبغي", example: "Du sollst lernen", prep: "", derivatives: []},
+        {verb: "dürfen", meaning: "يُسمح له", example: "Darf ich fragen?", prep: "", derivatives: []},
+        {verb: "wollen", meaning: "يريد", example: "Ich will nach Hause", prep: "", derivatives: []},
+        {verb: "mögen / möchten", meaning: "يحب / يود", example: "Ich möchte Kaffee", prep: "", derivatives: []},
+        {verb: "lassen", meaning: "يترك / يدع", example: "Lass mich in Ruhe!", prep: "", derivatives: []}
+    ],
+
+    tab7: [ // الأفعال الانعكاسية
+        {verb: "sich waschen", meaning: "يغسل نفسه", example: "Ich wasche mir die Hände", prep: "", derivatives: []},
+        {verb: "sich duschen", meaning: "يستحم", example: "Ich dusche mich morgens", prep: "", derivatives: []},
+        {verb: "sich anziehen", meaning: "يرتدي ملابسه", example: "Zieh dich schnell an!", prep: "", derivatives: []},
+        {verb: "sich ausziehen", meaning: "يخلع ملابسه", example: "Zieh dich aus!", prep: "", derivatives: []},
+        {verb: "sich setzen", meaning: "يجلس", example: "Setz dich bitte!", prep: "", derivatives: []},
+        {verb: "sich hinlegen", meaning: "يستلقي", example: "Ich lege mich ins Bett", prep: "", derivatives: []},
+        {verb: "sich erholen", meaning: "يستريح", example: "Ich erhole mich von der Arbeit", prep: "+ von (Dativ)", derivatives: []},
+        {verb: "sich erinnern", meaning: "يتذكر", example: "Erinnerst du dich an mich?", prep: "+ an (Akkusativ)", derivatives: []},
+        {verb: "sich entscheiden", meaning: "يقرر", example: "Ich entscheide mich für Option A", prep: "+ für (Akkusativ)", derivatives: []},
+        {verb: "sich beschweren", meaning: "يشتكي", example: "Er beschwert sich über den Service", prep: "+ über (Akkusativ)", derivatives: []},
+        {verb: "sich verabreden", meaning: "يحدد موعداً", example: "Wir verabreden uns mit Freunden", prep: "+ mit (Dativ)", derivatives: []},
+        {verb: "sich verspäten", meaning: "يتأخر", example: "Ich verspäte mich", prep: "", derivatives: []}
+    ],
+
+    tab8: [ // أفعال الدراسة والعمل
+        {verb: "lernen", meaning: "يتعلم", example: "Ich lerne Deutsch", prep: "", derivatives: []},
+        {verb: "studieren", meaning: "يدرس (جامعياً)", example: "Ich studiere Medizin", prep: "", derivatives: []},
+        {verb: "üben", meaning: "يتدرب", example: "Ich übe jeden Tag", prep: "", derivatives: []},
+        {verb: "wiederholen", meaning: "يكرر", example: "Wiederhole bitte!", prep: "", derivatives: []},
+        {verb: "unterrichten", meaning: "يدرّس", example: "Er unterrichtet Mathematik", prep: "", derivatives: []},
+        {verb: "lehren", meaning: "يُعلّم", example: "Sie lehrt Deutsch", prep: "", derivatives: []},
+        {verb: "prüfen", meaning: "يختبر / يفحص", example: "Der Lehrer prüft uns", prep: "", derivatives: []},
+        {verb: "bestehen", meaning: "ينجح / يجتاز", example: "Ich bestehe die Prüfung", prep: "+ aus (Dativ)", derivatives: []},
+        {verb: "verdienen", meaning: "يكسب / يستحق", example: "Ich verdiene 2000 Euro", prep: "", derivatives: []},
+        {verb: "suchen", meaning: "يبحث", example: "Ich suche nach Arbeit", prep: "+ nach (Dativ)", derivatives: []},
+        {verb: "sich bewerben", meaning: "يتقدم (لوظيفة)", example: "Ich bewerbe mich um die Stelle", prep: "+ um (Akkusativ) / bei (Dativ)", derivatives: []}
+    ],
+
+    tab9: [ // أفعال الطقس والطبيعة
+        {verb: "regnen", meaning: "تمطر", example: "Es regnet heute", prep: "", derivatives: []},
+        {verb: "schneien", meaning: "تثلج", example: "Es schneit im Winter", prep: "", derivatives: []},
+        {verb: "scheinen", meaning: "تشرق", example: "Die Sonne scheint", prep: "", derivatives: []},
+        {verb: "wachsen", meaning: "ينمو", example: "Die Pflanzen wachsen", prep: "", derivatives: []},
+        {verb: "blühen", meaning: "يزهر", example: "Die Rosen blühen", prep: "", derivatives: []},
+        {verb: "brennen", meaning: "يحترق", example: "Das Feuer brennt", prep: "", derivatives: []},
+        {verb: "leuchten", meaning: "يضيء / يتوهج", example: "Die Lampe leuchtet hell", prep: "", derivatives: []},
+        {verb: "steigen", meaning: "يرتفع", example: "Die Preise steigen", prep: "", derivatives: []}
+    ],
+
+    tab10: [ // أفعال متنوعة مهمة
+        {verb: "versuchen", meaning: "يحاول", example: "Ich versuche es noch mal", prep: "", derivatives: []},
+        {verb: "probieren", meaning: "يجرب", example: "Probier mal!", prep: "", derivatives: []},
+        {verb: "gewinnen", meaning: "يفوز / يربح", example: "Wir gewinnen das Spiel", prep: "", derivatives: []},
+        {verb: "verlieren", meaning: "يخسر", example: "Ich verliere mein Handy", prep: "", derivatives: []},
+        {verb: "ändern", meaning: "يغير", example: "Ich ändere meinen Plan", prep: "", derivatives: []},
+        {verb: "verbessern", meaning: "يحسّن", example: "Ich verbessere mein Deutsch", prep: "", derivatives: []},
+        {verb: "reparieren", meaning: "يصلح", example: "Ich repariere mein Auto", prep: "", derivatives: []},
+        {verb: "kaputtmachen", meaning: "يكسر", example: "Mach es nicht kaputt!", prep: "", derivatives: []},
+        {verb: "vergessen", meaning: "ينسى", example: "Vergiss nicht!", prep: "", derivatives: []},
+        {verb: "erinnern", meaning: "يذكّر", example: "Erinnere mich an den Termin!", prep: "+ an (Akkusativ)", derivatives: []},
+        {verb: "zeigen", meaning: "يُظهر / يُري", example: "Zeig mir das Foto!", prep: "", derivatives: []},
+        {verb: "benutzen", meaning: "يستخدم", example: "Ich benutze mein Handy", prep: "", derivatives: []},
+        {verb: "sparen", meaning: "يوفر / يدخر", example: "Ich spare Geld", prep: "", derivatives: []},
+        {verb: "ausgeben", meaning: "ينفق", example: "Ich gebe viel Geld für Kleidung aus", prep: "+ für (Akkusativ)", derivatives: []},
+        {verb: "erlauben", meaning: "يسمح", example: "Meine Eltern erlauben es", prep: "", derivatives: []}
+    ],
+
+    tab11: [ // أفعال التفكير والرأي
+        {verb: "überlegen", meaning: "يفكر / يتأمل", example: "Ich überlege mir das", prep: "", derivatives: []},
+        {verb: "nachdenken", meaning: "يتأمل / يفكر مليّاً", example: "Denk über das Problem nach!", prep: "+ über (Akkusativ)", derivatives: []},
+        {verb: "sich vorstellen", meaning: "يتخيل / يتصور", example: "Ich stelle mir das vor", prep: "", derivatives: []},
+        {verb: "erwarten", meaning: "يتوقع", example: "Ich erwarte viel von dir", prep: "+ von (Dativ)", derivatives: []},
+        {verb: "vermuten", meaning: "يفترض / يظن", example: "Ich vermute, dass er kommt", prep: "", derivatives: []},
+        {verb: "annehmen", meaning: "يفترض", example: "Ich nehme an, dass...", prep: "", derivatives: []},
+        {verb: "zweifeln", meaning: "يشك", example: "Ich zweifle an seiner Ehrlichkeit", prep: "+ an (Dativ)", derivatives: []},
+        {verb: "befürchten", meaning: "يخشى", example: "Ich befürchte das Schlimmste", prep: "", derivatives: []},
+        {verb: "vorschlagen", meaning: "يقترح", example: "Ich schlage vor, dass wir gehen", prep: "", derivatives: []},
+        {verb: "empfehlen", meaning: "ينصح / يوصي", example: "Ich empfehle dir dieses Buch", prep: "", derivatives: []},
+        {verb: "raten", meaning: "ينصح", example: "Ich rate dir zu warten", prep: "+ zu (Dativ)", derivatives: []},
+        {verb: "warnen", meaning: "يحذّر", example: "Ich warne dich vor der Gefahr!", prep: "+ vor (Dativ)", derivatives: []},
+        {verb: "behaupten", meaning: "يزعم / يدّعي", example: "Er behauptet, dass...", prep: "", derivatives: []},
+        {verb: "widersprechen", meaning: "يناقض / يعارض", example: "Ich widerspreche dir", prep: "+ Dativ", derivatives: []},
+        {verb: "entscheiden", meaning: "يقرر", example: "Ich entscheide mich dafür", prep: "", derivatives: []}
+    ],
+
+    tab12: [ // أفعال الإحساس والإدراك
+        {verb: "bemerken", meaning: "يلاحظ", example: "Hast du das bemerkt?", prep: "", derivatives: []},
+        {verb: "merken", meaning: "يلاحظ / يشعر", example: "Ich merke nichts", prep: "", derivatives: []},
+        {verb: "spüren", meaning: "يشعر / يحس", example: "Ich spüre Schmerzen", prep: "", derivatives: []},
+        {verb: "riechen", meaning: "يشم", example: "Es riecht nach Kaffee", prep: "+ nach (Dativ)", derivatives: []},
+        {verb: "schmecken", meaning: "يتذوق", example: "Das schmeckt nach Schokolade", prep: "+ nach (Dativ)", derivatives: []},
+        {verb: "berühren", meaning: "يلمس", example: "Berühr das nicht!", prep: "", derivatives: []},
+        {verb: "erkennen", meaning: "يتعرف / يدرك", example: "Ich erkenne ihn an seiner Stimme", prep: "+ an (Dativ)", derivatives: []},
+        {verb: "wahrnehmen", meaning: "يدرك / يلاحظ", example: "Ich nehme eine Veränderung wahr", prep: "", derivatives: []},
+        {verb: "beobachten", meaning: "يراقب", example: "Ich beobachte die Vögel", prep: "", derivatives: []},
+        {verb: "betrachten", meaning: "ينظر إلى / يتأمل", example: "Betrachte das Bild!", prep: "", derivatives: []},
+        {verb: "schauen", meaning: "ينظر", example: "Schau auf die Tafel!", prep: "+ auf (Akkusativ)", derivatives: []},
+        {verb: "achten", meaning: "ينتبه إلى", example: "Achte auf den Verkehr!", prep: "+ auf (Akkusativ)", derivatives: []}
+    ],
+
+    tab13: [ // أفعال التنظيم والترتيب
+        {verb: "planen", meaning: "يخطط", example: "Ich plane eine Reise", prep: "", derivatives: []},
+        {verb: "organisieren", meaning: "ينظم", example: "Wer organisiert die Party?", prep: "", derivatives: []},
+        {verb: "vorbereiten", meaning: "يُحضّر", example: "Ich bereite das Essen vor", prep: "", derivatives: []},
+        {verb: "ordnen", meaning: "يرتب", example: "Ordne deine Sachen!", prep: "", derivatives: []},
+        {verb: "sortieren", meaning: "يصنّف", example: "Ich sortiere die Dateien", prep: "", derivatives: []},
+        {verb: "aufräumen", meaning: "يرتب / ينظف", example: "Räum dein Zimmer auf!", prep: "", derivatives: []},
+        {verb: "putzen", meaning: "ينظف", example: "Ich putze die Wohnung", prep: "", derivatives: []},
+        {verb: "reinigen", meaning: "ينظف (رسمي)", example: "Die Reinigungskraft reinigt", prep: "", derivatives: []},
+        {verb: "waschen", meaning: "يغسل", example: "Ich wasche die Wäsche", prep: "", derivatives: []},
+        {verb: "trocknen", meaning: "يجفف", example: "Trockne die Teller!", prep: "", derivatives: []},
+        {verb: "bügeln", meaning: "يكوي", example: "Ich bügle mein Hemd", prep: "", derivatives: []},
+        {verb: "packen", meaning: "يحزم / يعبّئ", example: "Ich packe meinen Koffer", prep: "", derivatives: []}
+    ],
+
+    tab14: [ // أفعال الطلب والعرض
+        {verb: "bitten", meaning: "يطلب (بأدب)", example: "Ich bitte dich um Hilfe", prep: "+ um (Akkusativ)", derivatives: []},
+        {verb: "fordern", meaning: "يطالب", example: "Die Arbeiter fordern mehr Lohn", prep: "", derivatives: []},
+        {verb: "verlangen", meaning: "يطلب / يتطلب", example: "Was verlangst du von mir?", prep: "+ von (Dativ)", derivatives: []},
+        {verb: "bestellen", meaning: "يطلب / يحجز", example: "Ich bestelle eine Pizza", prep: "", derivatives: []},
+        {verb: "reservieren", meaning: "يحجز", example: "Ich reserviere einen Tisch", prep: "", derivatives: []},
+        {verb: "buchen", meaning: "يحجز", example: "Ich buche einen Flug", prep: "", derivatives: []},
+        {verb: "anbieten", meaning: "يعرض", example: "Ich biete dir meine Hilfe an", prep: "", derivatives: []},
+        {verb: "vorschlagen", meaning: "يقترح", example: "Ich schlage ein Treffen vor", prep: "", derivatives: []},
+        {verb: "ablehnen", meaning: "يرفض", example: "Ich lehne das Angebot ab", prep: "", derivatives: []},
+        {verb: "akzeptieren", meaning: "يقبل", example: "Ich akzeptiere deine Entschuldigung", prep: "", derivatives: []}
+    ],
+
+    tab15: [ // أفعال المشاكل والحلول
+        {verb: "lösen", meaning: "يحل", example: "Ich löse das Problem", prep: "", derivatives: []},
+        {verb: "klären", meaning: "يوضح / يحل", example: "Wir klären das Missverständnis", prep: "", derivatives: []},
+        {verb: "beheben", meaning: "يصلح / يعالج", example: "Der Fehler wurde behoben", prep: "", derivatives: []},
+        {verb: "funktionieren", meaning: "يعمل (آلة)", example: "Das Handy funktioniert nicht", prep: "", derivatives: []},
+        {verb: "klappen", meaning: "ينجح / يسير بشكل جيد", example: "Hat alles geklappt?", prep: "", derivatives: []},
+        {verb: "scheitern", meaning: "يفشل", example: "Der Plan ist gescheitert", prep: "+ an (Dativ)", derivatives: []},
+        {verb: "misslingen", meaning: "لا ينجح / يفشل", example: "Der Versuch ist misslungen", prep: "", derivatives: []},
+        {verb: "gelingen", meaning: "ينجح", example: "Es ist mir gelungen!", prep: "", derivatives: []},
+        {verb: "schaffen", meaning: "ينجز / يستطيع", example: "Ich schaffe das!", prep: "", derivatives: []},
+        {verb: "erreichen", meaning: "يصل إلى / يحقق", example: "Ich erreiche mein Ziel", prep: "", derivatives: []},
+        {verb: "erfüllen", meaning: "يحقق / يُنجز", example: "Ich erfülle meinen Traum", prep: "", derivatives: []},
+        {verb: "vermeiden", meaning: "يتجنب", example: "Vermeide Fehler!", prep: "", derivatives: []}
+    ],
+
+    tab16: [ // أفعال التواصل المتقدم
+        {verb: "informieren", meaning: "يُعلم / يُخبر", example: "Ich informiere dich über die Änderung", prep: "+ über (Akkusativ)", derivatives: []},
+        {verb: "mitteilen", meaning: "يُبلّغ", example: "Ich teile dir etwas mit", prep: "", derivatives: []},
+        {verb: "beschreiben", meaning: "يصف", example: "Beschreib mir dein Auto!", prep: "", derivatives: []},
+        {verb: "berichten", meaning: "يُبلّغ / يذكر", example: "Die Zeitung berichtet über das Ereignis", prep: "+ über (Akkusativ)", derivatives: []},
+        {verb: "erwähnen", meaning: "يذكر", example: "Er hat das nicht erwähnt", prep: "", derivatives: []},
+        {verb: "betonen", meaning: "يُشدد على", example: "Ich betone, dass...", prep: "", derivatives: []},
+        {verb: "hinweisen", meaning: "يُشير إلى", example: "Ich weise auf die Gefahr hin", prep: "+ auf (Akkusativ)", derivatives: []},
+        {verb: "zugeben", meaning: "يعترف", example: "Ich gebe meinen Fehler zu", prep: "", derivatives: []},
+        {verb: "leugnen", meaning: "ينكر", example: "Er leugnet die Tat", prep: "", derivatives: []},
+        {verb: "bestätigen", meaning: "يؤكد", example: "Bestätige deine E-Mail!", prep: "", derivatives: []}
+    ],
+
+    tab17: [ // أفعال التغيير والتطوير
+        {verb: "entwickeln", meaning: "يطوّر", example: "Wir entwickeln neue Produkte", prep: "", derivatives: [
+            {verb: "sich entwickeln", meaning: "يتطور", example: "Die Technologie entwickelt sich schnell"}
+        ]},
+        {verb: "wachsen", meaning: "ينمو", example: "Die Wirtschaft wächst", prep: "", derivatives: []},
+        {verb: "zunehmen", meaning: "يزداد", example: "Die Bevölkerung nimmt zu", prep: "", derivatives: []},
+        {verb: "abnehmen", meaning: "ينقص", example: "Die Zahl nimmt ab", prep: "", derivatives: []},
+        {verb: "sich erhöhen", meaning: "يرتفع", example: "Die Preise erhöhen sich", prep: "", derivatives: []},
+        {verb: "sinken", meaning: "ينخفض", example: "Die Temperatur sinkt", prep: "", derivatives: []},
+        {verb: "reduzieren", meaning: "يخفّض", example: "Wir reduzieren die Kosten", prep: "", derivatives: []},
+        {verb: "verringern", meaning: "يقلّل", example: "Wir verringern den Verbrauch", prep: "", derivatives: []},
+        {verb: "erweitern", meaning: "يوسّع", example: "Wir erweitern unser Angebot", prep: "", derivatives: []},
+        {verb: "vergrößern", meaning: "يكبّر", example: "Ich vergrößere das Foto", prep: "", derivatives: []},
+        {verb: "verkleinern", meaning: "يصغّر", example: "Ich verkleinere die Datei", prep: "", derivatives: []},
+        {verb: "erneuern", meaning: "يجدد", example: "Ich erneuere meinen Pass", prep: "", derivatives: []},
+        {verb: "ersetzen", meaning: "يستبدل", example: "Ich ersetze die alte Lampe", prep: "", derivatives: []},
+        {verb: "austauschen", meaning: "يتبادل", example: "Wir tauschen Erfahrungen aus", prep: "", derivatives: []},
+        {verb: "umwandeln", meaning: "يحوّل", example: "Ich wandle Euro in Dollar um", prep: "", derivatives: []}
+    ],
+
+    tab18: [ // أفعال العلاقات الاجتماعية
+        {verb: "sich kennenlernen", meaning: "يتعارف", example: "Wir lernen uns kennen", prep: "", derivatives: []},
+        {verb: "sich unterhalten", meaning: "يتحدث / يتسلّى", example: "Wir unterhalten uns gut", prep: "+ mit (Dativ)", derivatives: []},
+        {verb: "diskutieren", meaning: "يناقش", example: "Wir diskutieren über Politik", prep: "+ über (Akkusativ)", derivatives: []},
+        {verb: "streiten", meaning: "يتشاجر", example: "Sie streiten sich oft", prep: "+ mit (Dativ)", derivatives: []},
+        {verb: "sich versöhnen", meaning: "يتصالح", example: "Sie versöhnen sich wieder", prep: "+ mit (Dativ)", derivatives: []},
+        {verb: "verzeihen", meaning: "يسامح", example: "Ich verzeihe dir", prep: "+ Dativ", derivatives: []},
+        {verb: "vertrauen", meaning: "يثق", example: "Ich vertraue dir", prep: "+ Dativ", derivatives: []},
+        {verb: "misstrauen", meaning: "يرتاب", example: "Ich misstraue ihm", prep: "+ Dativ", derivatives: []},
+        {verb: "respektieren", meaning: "يحترم", example: "Ich respektiere deine Meinung", prep: "", derivatives: []},
+        {verb: "bewundern", meaning: "يُعجب بـ", example: "Ich bewundere deine Arbeit", prep: "", derivatives: []},
+        {verb: "beneiden", meaning: "يحسد", example: "Ich beneide dich um dein Glück", prep: "+ um (Akkusativ)", derivatives: []},
+        {verb: "heiraten", meaning: "يتزوج", example: "Ich heirate nächstes Jahr", prep: "", derivatives: []},
+        {verb: "sich scheiden lassen", meaning: "يطلّق", example: "Sie lassen sich scheiden", prep: "", derivatives: []},
+        {verb: "sich verlieben", meaning: "يقع في الحب", example: "Ich habe mich verliebt", prep: "+ in (Akkusativ)", derivatives: []},
+        {verb: "sich trennen", meaning: "يفترق", example: "Wir trennen uns", prep: "+ von (Dativ)", derivatives: []}
+    ],
+
+    tab19: [ // أفعال المال والأعمال
+        {verb: "investieren", meaning: "يستثمر", example: "Ich investiere in Aktien", prep: "+ in (Akkusativ)", derivatives: []},
+        {verb: "leihen", meaning: "يُقرض", example: "Ich leihe dir Geld", prep: "", derivatives: []},
+        {verb: "borgen", meaning: "يقترض", example: "Ich borge mir Geld", prep: "", derivatives: []},
+        {verb: "schulden", meaning: "يدين", example: "Ich schulde dir 50 Euro", prep: "", derivatives: []},
+        {verb: "zurückzahlen", meaning: "يسدد", example: "Ich zahle den Kredit zurück", prep: "", derivatives: []},
+        {verb: "überweisen", meaning: "يحوّل (مالاً)", example: "Ich überweise das Geld", prep: "", derivatives: []},
+        {verb: "abheben", meaning: "يسحب (مالاً)", example: "Ich hebe Geld ab", prep: "", derivatives: []},
+        {verb: "einzahlen", meaning: "يودع (مالاً)", example: "Ich zahle Geld ein", prep: "", derivatives: []},
+        {verb: "spenden", meaning: "يتبرع", example: "Ich spende für wohltätige Zwecke", prep: "+ für (Akkusativ)", derivatives: []},
+        {verb: "verschwenden", meaning: "يبذّر", example: "Verschwende kein Geld!", prep: "", derivatives: []},
+        {verb: "handeln", meaning: "يتاجر", example: "Er handelt mit Autos", prep: "+ mit (Dativ)", derivatives: []},
+        {verb: "verhandeln", meaning: "يتفاوض", example: "Wir verhandeln über den Preis", prep: "+ über (Akkusativ)", derivatives: []}
+    ],
+
+    tab20: [ // أفعال التأثير والسببية
+        {verb: "verursachen", meaning: "يتسبب في", example: "Der Regen verursacht Überschwemmungen", prep: "", derivatives: []},
+        {verb: "bewirken", meaning: "يُحدِث", example: "Das bewirkt eine Veränderung", prep: "", derivatives: []},
+        {verb: "führen zu", meaning: "يؤدي إلى", example: "Das führt zu Problemen", prep: "+ zu (Dativ)", derivatives: []},
+        {verb: "beeinflussen", meaning: "يؤثر على", example: "Das Wetter beeinflusst meine Stimmung", prep: "", derivatives: []},
+        {verb: "überreden", meaning: "يقنع", example: "Ich überrede ihn mitzukommen", prep: "", derivatives: []},
+        {verb: "überzeugen", meaning: "يقنع", example: "Ich überzeuge dich davon", prep: "+ von (Dativ)", derivatives: []},
+        {verb: "zwingen", meaning: "يُجبر", example: "Niemand zwingt dich dazu", prep: "+ zu (Dativ)", derivatives: []},
+        {verb: "verhindern", meaning: "يمنع", example: "Wir verhindern das Problem", prep: "", derivatives: []},
+        {verb: "ermöglichen", meaning: "يُمكّن", example: "Das ermöglicht neue Chancen", prep: "", derivatives: []},
+        {verb: "erlauben", meaning: "يسمح", example: "Ich erlaube es dir", prep: "", derivatives: []}
+    ]
+};
+
+let currentSearchQuery = '';
+
+function highlightText(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<span class="highlight-text">$1</span>');
+}
+
+function renderVerbCard(verb, searchQuery = '') {
+    const hasDerivatives = verb.derivatives && verb.derivatives.length > 0;
+    const card = document.createElement('div');
+    
+    // Don't show pin icon for derivative cards or cards without derivatives
+    card.className = (hasDerivatives && !verb.isDerivative) ? 'verb-card has-derivatives' : 'verb-card';
+    if (searchQuery) card.classList.add('highlight');
+    
+    // Only show modal for main verbs with derivatives, not for standalone derivatives
+    if (hasDerivatives && !verb.isDerivative) {
+        card.onclick = () => showModal(verb.verb, verb.meaning, verb.derivatives, verb.prep);
+    }
+    
+    // Add parent verb info for derivatives
+    let parentInfo = '';
+    if (verb.isDerivative && verb.parentVerb) {
+        parentInfo = `<div style="font-size: 0.75em; color: #999; margin-bottom: 5px;">من: ${verb.parentVerb}</div>`;
+    }
+    
+    card.innerHTML = `
+        ${parentInfo}
+        <div class="verb-german">${highlightText(verb.verb, searchQuery)}</div>
+        ${verb.prep ? `<div class="verb-prep">${highlightText(verb.prep, searchQuery)}</div>` : ''}
+        <div class="verb-arabic">${highlightText(verb.meaning, searchQuery)}</div>
+        <div class="verb-example">${highlightText(verb.example, searchQuery)}</div>
+    `;
+    return card;
+}
+
+function renderVerbs(tabId) {
+    const grid = document.querySelector(`#${tabId} .verbs-grid`);
+    if (grid.children.length > 0) return;
+    
+    verbsData[tabId].forEach(v => {
+        grid.appendChild(renderVerbCard(v));
+    });
+}
+
+function searchVerbs() {
+    const searchBox = document.getElementById('searchBox');
+    const query = searchBox.value.trim().toLowerCase();
+    const clearBtn = document.getElementById('clearSearch');
+    const resultsInfo = document.getElementById('searchResultsInfo');
+    
+    // Show/hide clear button
+    clearBtn.classList.toggle('visible', query.length > 0);
+    
+    if (query.length === 0) {
+        // Hide search results and show current tab
+        document.getElementById('searchResults').classList.remove('active');
+        const activeTab = document.querySelector('.tab-content.active:not(#searchResults)');
+        if (!activeTab) {
+            document.getElementById('tab1').classList.add('active');
+        }
+        resultsInfo.textContent = '';
+        currentSearchQuery = '';
+        return;
+    }
+    
+    currentSearchQuery = query;
+    
+    // Hide all tabs and show search results
+    const allTabs = document.querySelectorAll('.tab-content');
+    allTabs.forEach(tab => tab.classList.remove('active'));
+    document.getElementById('searchResults').classList.add('active');
+    
+    // Deactivate all tab buttons
+    const tabButtons = document.querySelectorAll('.tab-button');
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // Search through all verbs
+    const searchResultsGrid = document.getElementById('searchResultsGrid');
+    searchResultsGrid.innerHTML = '';
+    
+    let foundVerbs = [];
+    
+    Object.keys(verbsData).forEach(tabKey => {
+        verbsData[tabKey].forEach(verb => {
+            // Search ONLY in the main verb name - must start with query
+            const matchesVerb = verb.verb.toLowerCase().startsWith(query);
+            
+            if (matchesVerb) {
+                foundVerbs.push(verb);
+            }
+            
+            // Check derivatives and add them as separate entries if they match
+            if (verb.derivatives && verb.derivatives.length > 0) {
+                verb.derivatives.forEach(der => {
+                    if (der.verb.toLowerCase().startsWith(query)) {
+                        // Create a standalone verb object for the matching derivative
+                        foundVerbs.push({
+                            verb: der.verb,
+                            meaning: der.meaning,
+                            example: der.example,
+                            prep: "",
+                            derivatives: [],
+                            isDerivative: true,
+                            parentVerb: verb.verb
+                        });
+                    }
+                });
+            }
+        });
+    });
+    
+    // Display results
+    if (foundVerbs.length > 0) {
+        resultsInfo.textContent = `تم العثور على ${foundVerbs.length} نتيجة`;
+        foundVerbs.forEach(verb => {
+            searchResultsGrid.appendChild(renderVerbCard(verb, query));
+        });
+    } else {
+        resultsInfo.textContent = '';
+        searchResultsGrid.innerHTML = '<div class="no-results">😔 لم يتم العثور على نتائج<br>جرّب البحث بكلمات أخرى</div>';
+    }
+}
+
+function clearSearch() {
+    document.getElementById('searchBox').value = '';
+    searchVerbs();
+    document.getElementById('searchBox').focus();
+}
+
+function openTab(evt, tabId) {
+    // Only activate tab if not searching
+    const searchBox = document.getElementById('searchBox');
+    if (searchBox.value.trim().length > 0) {
+        searchBox.value = '';
+        searchVerbs();
+    }
+    
+    const tabContents = document.getElementsByClassName('tab-content');
+    for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove('active');
+    }
+    
+    const tabButtons = document.getElementsByClassName('tab-button');
+    for (let i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove('active');
+    }
+    
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+    
+    renderVerbs(tabId);
+}
+
+function showModal(verb, meaning, derivatives, prep) {
+    document.getElementById('modalVerbTitle').textContent = verb;
+    document.getElementById('modalVerbMeaning').textContent = meaning;
+    document.getElementById('modalPrep').textContent = prep || '';
+    
+    const derivativesSection = document.getElementById('derivativesSection');
+    
+    if (derivatives && derivatives.length > 0) {
+        let html = '<div class="derivatives-title">🔗 المشتقات الأكثر استخداماً</div>';
+        derivatives.forEach(der => {
+            html += `
+                <div class="derivative-card">
+                    <div class="derivative-verb">${der.verb}</div>
+                    <div class="derivative-meaning">${der.meaning}</div>
+                    <div class="derivative-example">${der.example}</div>
+                </div>
+            `;
+        });
+        derivativesSection.innerHTML = html;
+    } else {
+        derivativesSection.innerHTML = '<div class="no-derivatives">⚠️ هذا الفعل ليس له مشتقات شائعة في مستوى A2-B1</div>';
+    }
+    
+    document.getElementById('verbModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('verbModal').style.display = 'none';
+}
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById('verbModal')) {
+        closeModal();
+    }
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('verbModal');
+        if (modal.style.display === 'block') {
+            closeModal();
+        } else {
+            clearSearch();
+        }
+    }
+});
+
+// Render first tab on page load
+renderVerbs('tab1');
+    </script>
 </body>
 </html>
