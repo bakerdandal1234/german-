@@ -33,6 +33,29 @@
             margin-bottom: 10px;
             font-size: 2.5em;
         }
+
+        .branding {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .baker-dandal {
+            font-size: 1.2em;
+            font-weight: bold;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientWave 3s ease infinite;
+            letter-spacing: 2px;
+            display: inline-block;
+        }
+
+        @keyframes gradientWave {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
         
         .subtitle {
             text-align: center;
@@ -395,6 +418,10 @@
                 font-size: 1.8em;
             }
 
+            .baker-dandal {
+                font-size: 2em;
+            }
+
             .tabs {
                 flex-wrap: wrap;
             }
@@ -423,8 +450,11 @@
 </head>
 <body>
     <div class="container">
+        <div class="branding">
+            <div class="baker-dandal">Baker Dandal</div>
+        </div>
         <h1>🇩🇪 أهم الأفعال الألمانية</h1>
-        <p class="subtitle">مستوى A2-B1 - 233 فعل مع حروف الجر والمشتقات (📌 اضغط للمشتقات)</p>
+        <p class="subtitle">مستوى A2-B1 - 234 فعل مع حروف الجر والمشتقات (📌 اضغط للمشتقات)</p>
 
         <!-- Search Box -->
         <div class="search-container">
@@ -846,6 +876,7 @@ const verbsData = {
 
     tab11: [ // أفعال التفكير والرأي
         {verb: "überlegen", meaning: "يفكر / يتأمل", example: "Ich überlege mir das", prep: "", derivatives: []},
+        {verb: "vorhaben", meaning: "ينوي / يخطط", example: "Was hast du heute vor?", prep: "", derivatives: []},
         {verb: "nachdenken", meaning: "يتأمل / يفكر مليّاً", example: "Denk über das Problem nach!", prep: "+ über (Akkusativ)", derivatives: []},
         {verb: "sich vorstellen", meaning: "يتخيل / يتصور", example: "Ich stelle mir das vor", prep: "", derivatives: []},
         {verb: "erwarten", meaning: "يتوقع", example: "Ich erwarte viel von dir", prep: "+ von (Dativ)", derivatives: []},
@@ -859,8 +890,7 @@ const verbsData = {
         {verb: "warnen", meaning: "يحذّر", example: "Ich warne dich vor der Gefahr!", prep: "+ vor (Dativ)", derivatives: []},
         {verb: "behaupten", meaning: "يزعم / يدّعي", example: "Er behauptet, dass...", prep: "", derivatives: []},
         {verb: "widersprechen", meaning: "يناقض / يعارض", example: "Ich widerspreche dir", prep: "+ Dativ", derivatives: []},
-        {verb: "entscheiden", meaning: "يقرر", example: "Ich entscheide mich dafür", prep: "", derivatives: []},
-        {verb: "vorhaben", meaning: "ينوي / يخطط", example: "Was hast du heute vor?", prep: "", derivatives: []},
+        {verb: "entscheiden", meaning: "يقرر", example: "Ich entscheide mich dafür", prep: "", derivatives: []}
     ],
 
     tab12: [ // أفعال الإحساس والإدراك
