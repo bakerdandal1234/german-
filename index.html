@@ -1043,7 +1043,7 @@
         <div class="branding">
             <div class="baker-dandal">Baker Dandal</div>
         </div>
-        <h1>🇩🇪 أهم الأفعال الألمانية</h1>
+        <h1>أهم الأفعال الألمانية</h1>
         <p class="subtitle">مستوى A2-B1 - 234 فعل مع حروف الجر والمشتقات (📌 اضغط للمشتقات)</p>
 
         <!-- Action Buttons -->
@@ -1094,6 +1094,7 @@
             <button class="tab-button" onclick="openTab(event, 'tab18')">١٨. علاقات اجتماعية</button>
             <button class="tab-button" onclick="openTab(event, 'tab19')">١٩. مال وأعمال</button>
             <button class="tab-button" onclick="openTab(event, 'tab20')">٢٠. تأثير وسببية</button>
+            <button class="tab-button" onclick="openTab(event, 'tab21')">٢١.افعال + zu</button>
         </div>
 
         <!-- Favorites Tab -->
@@ -1208,6 +1209,11 @@
 
         <!-- Tab 20 -->
         <div id="tab20" class="tab-content">
+            <div class="verbs-grid"></div>
+        </div>
+
+        <!-- Tab 21 -->
+        <div id="tab21" class="tab-content">
             <div class="verbs-grid"></div>
         </div>
 
@@ -1983,7 +1989,7 @@ const verbsData = {
         {verb: "mögen", meaning: "يحب", example: "Ich mag Pizza", prep: "", derivatives: []},
         {verb: "lieben", meaning: "يحب (بشدة)", example: "Ich liebe dich", prep: "", derivatives: []},
         {verb: "hassen", meaning: "يكره", example: "Ich hasse Montage", prep: "", derivatives: []},
-        {verb: "sich freuen", meaning: "يفرح", example: "Ich freue mich auf morgen", prep: "+ auf (Akkusativ) / über (Akkusativ)", derivatives: []},
+        {verb: "sich freuen", meaning: "يفرح", example: "Ich freue mich auf morgen/Ich freue mich über das Geschenk", prep: "+ auf (Akkusativ) / über (Akkusativ)", derivatives: []},
         {verb: "sich ärgern", meaning: "يغضب / ينزعج", example: "Ich ärgere mich über das Wetter", prep: "+ über (Akkusativ)", derivatives: []},
         {verb: "sich interessieren", meaning: "يهتم", example: "Ich interessiere mich für Musik", prep: "+ für (Akkusativ)", derivatives: []},
         {verb: "hoffen", meaning: "يأمل", example: "Ich hoffe auf gutes Wetter", prep: "+ auf (Akkusativ)", derivatives: []},
@@ -2219,8 +2225,64 @@ const verbsData = {
         {verb: "verhindern", meaning: "يمنع", example: "Wir verhindern das Problem", prep: "", derivatives: []},
         {verb: "ermöglichen", meaning: "يُمكّن", example: "Das ermöglicht neue Chancen", prep: "", derivatives: []},
         {verb: "erlauben", meaning: "يسمح", example: "Ich erlaube es dir", prep: "", derivatives: []}
-    ]
+    ],
+
+    tab21: [ // أفعال تأخذ zu + Infinitiv
+    // 1. أفعال النية والتخطيط
+    {verb: "vorhaben", meaning: "ينوي", example: "Ich habe vor, nach Berlin zu reisen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "planen", meaning: "يخطط", example: "Ich plane, ein Haus zu kaufen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "beabsichtigen", meaning: "يعتزم", example: "Ich beabsichtige, dort zu studieren", prep: "+ zu + Infinitiv", derivatives: []},
+    
+    // 2. أفعال البداية والنهاية
+    {verb: "anfangen", meaning: "يبدأ", example: "Ich fange an zu lernen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "beginnen", meaning: "يبدأ", example: "Er beginnt zu arbeiten", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "aufhören", meaning: "يتوقف", example: "Hör auf zu rauchen!", prep: "+ zu + Infinitiv", derivatives: []},
+    
+    // 3. أفعال النسيان والتذكر
+    {verb: "vergessen", meaning: "ينسى", example: "Vergiss nicht, mich anzurufen!", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "sich erinnern", meaning: "يتذكر", example: "Ich erinnere mich, dich zu fragen", prep: "+ zu + Infinitiv", derivatives: []},
+    
+    // 4. أفعال المحاولة والقرار
+    {verb: "versuchen", meaning: "يحاول", example: "Ich versuche, pünktlich zu sein", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "sich entscheiden", meaning: "يقرر", example: "Ich entscheide mich, hier zu bleiben", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "beschließen", meaning: "يقرر", example: "Wir beschließen, früher zu gehen", prep: "+ zu + Infinitiv", derivatives: []},
+    
+    // 5. أفعال الوعد والطلب
+    {verb: "versprechen", meaning: "يَعِد", example: "Ich verspreche, dir zu helfen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "bitten", meaning: "يطلب", example: "Ich bitte dich, leise zu sein", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "vorschlagen", meaning: "يقترح", example: "Ich schlage vor, ins Kino zu gehen", prep: "+ zu + Infinitiv", derivatives: []},
+    
+    // 6. أفعال الخوف والأمل
+    {verb: "hoffen", meaning: "يأمل", example: "Ich hoffe, dich bald zu sehen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "sich freuen", meaning: "يفرح", example: "Ich freue mich, dich zu treffen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "Angst haben", meaning: "يخاف", example: "Ich habe Angst, allein zu sein", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "befürchten", meaning: "يخشى", example: "Ich befürchte, zu spät zu kommen", prep: "+ zu + Infinitiv", derivatives: []},
+    
+    // 7. أفعال أخرى مهمة
+    {verb: "brauchen", meaning: "يحتاج (نفي)", example: "Du brauchst nicht zu kommen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "scheinen", meaning: "يبدو", example: "Er scheint krank zu sein", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "erlauben", meaning: "يسمح", example: "Ich erlaube dir, hier zu bleiben", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "verbieten", meaning: "يمنع", example: "Ich verbiete dir, das zu tun", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "empfehlen", meaning: "ينصح", example: "Ich empfehle dir, früh zu kommen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "raten", meaning: "ينصح", example: "Ich rate dir, vorsichtig zu sein", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "warnen", meaning: "يحذّر", example: "Ich warne dich, nicht zu spät zu kommen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "sich weigern", meaning: "يرفض", example: "Er weigert sich, das zu machen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "sich bemühen", meaning: "يسعى", example: "Ich bemühe mich, besser zu werden", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "gelingen", meaning: "ينجح", example: "Es gelingt mir, die Prüfung zu bestehen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "schaffen", meaning: "ينجح في", example: "Ich schaffe es, früh aufzustehen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "helfen", meaning: "يساعد", example: "Ich helfe dir, das Problem zu lösen", prep: "+ zu + Infinitiv (اختياري)", derivatives: []},
+    {verb: "lernen", meaning: "يتعلم", example: "Ich lerne, Deutsch zu sprechen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "lehren", meaning: "يعلّم", example: "Er lehrt mich, Auto zu fahren", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "sich trauen", meaning: "يجرؤ", example: "Ich traue mich nicht, das zu sagen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "wagen", meaning: "يجرؤ", example: "Er wagt es nicht, sie zu fragen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "sich beeilen", meaning: "يسرع", example: "Beeil dich, fertig zu werden!", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "Zeit haben", meaning: "يملك وقتاً", example: "Hast du Zeit, mir zu helfen?", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "Lust haben", meaning: "يرغب", example: "Ich habe Lust, ins Kino zu gehen", prep: "+ zu + Infinitiv", derivatives: []},
+    {verb: "es vorziehen", meaning: "يفضّل", example: "Ich ziehe es vor, zu Hause zu bleiben", prep: "+ zu + Infinitiv", derivatives: []}
+]
 };
+
+
 
 let currentSearchQuery = '';
 
